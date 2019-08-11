@@ -1,0 +1,85 @@
+﻿<Window x:Class="WpfAppone.AppwinOne"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AppwinOne" Height="320" Width="820">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="38"/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="70"/>
+			<ColumnDefinition Width="273*"/>
+		</Grid.ColumnDefinitions>
+		<StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Horizontal">
+			<StackPanel.Resources>
+				<Style TargetType="RadioButton">
+					<Setter Property="GroupName" Value="Sort" />
+					<EventSetter Event="Click" Handler="RadioButton_Checked"/>
+					<Setter Property="Margin" Value="0 0 3 0"/>
+				</Style>
+				<Style TargetType="CheckBox">
+					<EventSetter Event="Click" Handler="CheckBox_Checked"/>
+				</Style>
+				<Style TargetType="Button">
+					<Setter Property="Width" Value="60"/>
+					<Setter Property="Height" Value="26" />
+					<Setter Property="Margin" Value="2 0 2 0"/>
+				</Style>
+			</StackPanel.Resources>
+			<Label Height="26" VerticalAlignment="Center">W x H: </Label>
+			<TextBox Width="50" Height="26"></TextBox>
+			<Button>Tile</Button>
+			<Button>Erase</Button>
+			<GroupBox Name="SortGroup" Header="Sort by:">
+				<StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+					<RadioButton IsChecked="True">R</RadioButton>
+					<RadioButton>~R</RadioButton>
+					<RadioButton>G</RadioButton>
+					<RadioButton>~G</RadioButton>
+					<RadioButton>B</RadioButton>
+					<RadioButton>~B</RadioButton>
+					<RadioButton>RGB</RadioButton>
+					<RadioButton>CMYK</RadioButton>
+					<RadioButton>HSL</RadioButton>
+					<RadioButton>HSV</RadioButton>
+					<RadioButton>Yomi</RadioButton>
+					<CheckBox IsChecked="True">Invert</CheckBox>
+				</StackPanel>
+			</GroupBox>
+		</StackPanel>
+		<ListBox Grid.Column="0" Grid.RowSpan="2" Name="L" SelectionChanged="L_SelectionChanged" SelectionMode="Extended" />
+		<Grid Grid.Column="1">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="200*"/>
+				<RowDefinition Height="28" />
+			</Grid.RowDefinitions>
+			<ListBox Name="R" Grid.Row="0" SelectionChanged="R_SelectionChanged" />
+			<Grid Grid.Row="1">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="80" />
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="70"/>
+				</Grid.ColumnDefinitions>
+				<CheckBox Name="incl" Content="Inclusive" VerticalAlignment="Center" 
+									Margin="10 0 0 0" Checked="CheckBox_Checked" Grid.Column="0" />
+				<UniformGrid Grid.Column="1" Columns="3" VerticalAlignment="Center">
+					<UniformGrid.Resources>
+						<Style TargetType="RadioButton">
+							<EventSetter Event="Checked" Handler="RadioButton_Checked" />
+						</Style>
+					</UniformGrid.Resources>
+					<RadioButton Content="Single" Background="ForestGreen" />
+					<RadioButton Content="Multiple" Background="SlateBlue"/>
+					<RadioButton Name="exte" Content="Extended" Background="Coral" Tag="Snow" IsChecked="true"/>
+				</UniformGrid>
+				<Button Name="clea" Content="Clear" Width="60" Height="24" 
+								HorizontalAlignment="Right" VerticalAlignment="Center" 
+								Margin="0 0 4 0" Click="Button_Click" IsEnabled="False"
+								Grid.Column="2"/>
+			</Grid>
+		</Grid>
+		<GridSplitter HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="8" 
+									Grid.Column="1" Grid.RowSpan="2" Name="split" Background="#FFC3D1AC" />
+	</Grid>
+</Window>

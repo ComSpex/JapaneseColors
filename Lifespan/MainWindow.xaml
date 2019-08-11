@@ -1,0 +1,55 @@
+﻿<Window x:Class="Lifespan.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				xmlns:my="clr-namespace:Lifespan"
+        Title="MainWindow" Height="336" Width="401">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<ListBox RenderTransformOrigin="0.5 0.5">
+			<ListBox.Resources>
+				<Style TargetType="ListBoxItem">
+					<Setter Property="Height" Value="10" />
+				</Style>
+				<Style x:Key="mark" TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+					<Setter Property="BorderThickness" Value="1" />
+					<Setter Property="BorderBrush" Value="Blue" />
+				</Style>
+			</ListBox.Resources>
+			<ListBoxItem />
+			<ListBoxItem />
+			<ListBoxItem />
+			<ListBoxItem Style="{StaticResource mark}" />
+			<ListBoxItem />
+			<ListBoxItem />
+			<ListBoxItem />
+			<ListBoxItem />
+			<ListBoxItem Style="{StaticResource mark}" />
+			<ListBoxItem />
+			<ListBox.RenderTransform>
+				<TransformGroup>
+					<RotateTransform Angle="0" />
+					<TranslateTransform X="0" Y="0" />
+				</TransformGroup>
+			</ListBox.RenderTransform>
+			<ListBox.LayoutTransform>
+				<TransformGroup>
+					<RotateTransform Angle="-90" />
+					<TranslateTransform X="0" Y="0" />
+				</TransformGroup>
+			</ListBox.LayoutTransform>
+		</ListBox>
+		<Button Grid.Row="1" Content="Button" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="80" Height="30" Click="Button_Click" RenderTransformOrigin="0.773,-0.279" Margin="0,0,0,24">
+			<Button.RenderTransform>
+				<TransformGroup>
+					<ScaleTransform/>
+					<SkewTransform/>
+					<RotateTransform Angle="-45"/>
+					<TranslateTransform X="-21.86" Y="-8.622"/>
+				</TransformGroup>
+			</Button.RenderTransform>
+		</Button>
+	</Grid>
+</Window>

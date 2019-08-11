@@ -1,0 +1,9 @@
+﻿<Window x:Class="Lifespan.AskProfileWin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				xmlns:my="clr-namespace:Lifespan"
+        Title="AskProfileWin" Height="300" Width="300">
+    <Grid>
+		<my:AskProfile Grid.Row="0" Width="278" />
+	</Grid>
+</Window>
