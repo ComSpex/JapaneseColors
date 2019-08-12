@@ -1,16 +1,20 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Forms;
+using System.Windows.Threading;
 using Color = System.Drawing.Color;
 using Control = System.Windows.Forms.Control;
 using FontFamily = System.Drawing.FontFamily;
 using Label = System.Windows.Forms.Label;
+using FormTimer = System.Windows.Forms.Timer;
 
 namespace TileWindows {
 	public partial class Child:ChildBase{
 		TextBlock tb = new TextBlock();
 		Random rand = new Random();
-		Timer tick = new Timer();
+		FormTimer tick = new FormTimer();
 		bool isUseNamedColor = true;
 		public Child() {
 			InitializeComponent();
@@ -18,9 +22,9 @@ namespace TileWindows {
 			Viewbox vb = new Viewbox();
 			vb.Child=tb;
 			elementHost1.Child=vb;
+			RecollectFontFamilies();
 			tick.Interval=rand.Next(5000,10000);
 			tick.Tick+=Tick_Tick;
-			RecollectFontFamilies();
 		}
 		public Child(Form boss,string title)
 			: this() {
@@ -46,15 +50,39 @@ namespace TileWindows {
 		public override string Tooltip {
 			get { return (string)(elementHost1.Child as Viewbox).ToolTip; }
 		}
+		CancellationToken cancel = CancellationToken.None;
+		bool first = true;
 		private void Tick_Tick(object sender,EventArgs e) {
-			MainTick(sender);
+			//MainTick(sender);
+			if(!first) { return; }
+			first=true;
+			DoTaskAsync();
 		}
+		private async Task DoTaskAsync() {
+			await DoUIThreadWorkAsync(cancel);
+		}
+		async Task DoUIThreadWorkAsync(CancellationToken token) {
+			Func<Task> idleYield = async () => await Dispatcher.Yield(DispatcherPriority.ApplicationIdle);
+			var cancellationTcs = new TaskCompletionSource<bool>();
+			using(token.Register(() => cancellationTcs.SetCanceled(),useSynchronizationContext: true)) {
+				while(true) {
+					await Task.Delay(100,token);
+					await Task.WhenAny(idleYield(),cancellationTcs.Task);
+					token.ThrowIfCancellationRequested();
+
+					// do the UI-related work
+					MainTick(tick);
+				}
+
+			}
+		}
+
 		public override void MainTick(object sender) {
 			if(toggle) {
 				return;
 			}
-			Timer time = sender as Timer;
-			tb.Text=DateTime.Now.ToString(/*"HH:mm:ss.fff"*/"HH:mm:ss");
+			FormTimer time = sender as FormTimer;
+			tb.Text=DateTime.Now.ToString("HH:mm:ss.fff");
 			string fontName = ffs[rand.Next(0,ffs.Length-1)].Name;
 			tb.FontFamily=new System.Windows.Media.FontFamily(fontName);
 			Color color = Color.Empty;
