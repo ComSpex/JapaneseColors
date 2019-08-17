@@ -9,6 +9,7 @@ using Control = System.Windows.Forms.Control;
 using FontFamily = System.Drawing.FontFamily;
 using Label = System.Windows.Forms.Label;
 using FormTimer = System.Windows.Forms.Timer;
+using System.Media;
 
 namespace TileWindows {
 	public partial class Child:ChildBase{
@@ -37,6 +38,7 @@ namespace TileWindows {
 			Form1 boss = this.Owner as Form1;
 			boss.Select(this);
 			ToggleTimer();
+			SystemSounds.Asterisk.Play();
 		}
 		protected override void OnDeactivate(EventArgs e) {
 			base.OnDeactivate(e);
@@ -104,7 +106,7 @@ namespace TileWindows {
 					colorName=String.Format("{0}({1})",colorName,ToString(color));
 				}
 			}
-			this.timerInterval.Text=String.Format("{0,4}",time.Interval);
+			//this.timerInterval.Text=String.Format("{0,4}",time.Interval);
 			this.Background.Text=String.Format("{0}",colorName);
 			this.fontFamily.Text=String.Format("{0}",fontName);
 			if(isUseNamedColor) {

@@ -67,12 +67,20 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="AppwinOne.Forms.cs" />
     <Compile Include="AppwinOne.Subwin.cs" />
     <Compile Include="AppwinOne.xaml.cs">
       <DependentUpon>AppwinOne.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Child.xaml.cs">
+      <DependentUpon>Child.xaml</DependentUpon>
+    </Compile>
     <Compile Include="JapaneseColors.CMYK.cs" />
     <Compile Include="JapaneseColors.cs" />
+    <Page Include="Child.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="NamedSolidColorBrush.CMYK.cs" />

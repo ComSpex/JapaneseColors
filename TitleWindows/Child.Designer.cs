@@ -24,10 +24,10 @@
 		/// </summary>
 		private void InitializeComponent() {
 			this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
-			this.label1 = new System.Windows.Forms.Label();
+			//this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
-			this.timerInterval = new System.Windows.Forms.Label();
+			//this.timerInterval = new System.Windows.Forms.Label();
 			this.Background = new System.Windows.Forms.Label();
 			this.fontFamily = new System.Windows.Forms.Label();
 			this.SuspendLayout();
@@ -42,6 +42,7 @@
 			this.elementHost1.TabIndex = 0;
 			this.elementHost1.Text = "elementHost1";
 			this.elementHost1.Child = null;
+#if false
 			// 
 			// label1
 			// 
@@ -52,6 +53,7 @@
 			this.label1.Size = new System.Drawing.Size(80, 13);
 			this.label1.TabIndex = 1;
 			this.label1.Text = "Timer Interval : ";
+#endif
 			// 
 			// label2
 			// 
@@ -72,6 +74,7 @@
 			this.label3.Size = new System.Drawing.Size(66, 13);
 			this.label3.TabIndex = 3;
 			this.label3.Text = "FontFamily : ";
+#if false
 			// 
 			// timerInterval
 			// 
@@ -82,6 +85,7 @@
 			this.timerInterval.Size = new System.Drawing.Size(65, 13);
 			this.timerInterval.TabIndex = 4;
 			this.timerInterval.Text = "computing...";
+#endif
 			// 
 			// Background
 			// 
@@ -112,10 +116,10 @@
 			this.ControlBox = false;
 			this.Controls.Add(this.fontFamily);
 			this.Controls.Add(this.Background);
-			this.Controls.Add(this.timerInterval);
+			//this.Controls.Add(this.timerInterval);
 			this.Controls.Add(this.label3);
 			this.Controls.Add(this.label2);
-			this.Controls.Add(this.label1);
+			//this.Controls.Add(this.label1);
 			this.Controls.Add(this.elementHost1);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
 			this.MaximizeBox = false;
@@ -127,13 +131,13 @@
 
 		}
 
-		#endregion
+#endregion
 
 		private System.Windows.Forms.Integration.ElementHost elementHost1;
-		private System.Windows.Forms.Label label1;
+		//private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.Label timerInterval;
+		//private System.Windows.Forms.Label timerInterval;
 		private System.Windows.Forms.Label Background;
 		private System.Windows.Forms.Label fontFamily;
 	}

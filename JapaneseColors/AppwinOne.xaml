@@ -28,9 +28,9 @@
 				</Style>
 			</StackPanel.Resources>
 			<Label Height="26" VerticalAlignment="Center">W x H: </Label>
-			<TextBox Width="50" Height="26"></TextBox>
-			<Button>Tile</Button>
-			<Button>Erase</Button>
+			<TextBox Name="wxh" Width="50" Height="26">10 x 10</TextBox>
+			<Button Click="Tile_Click">Tile</Button>
+			<Button Click="Erase_Click">Erase</Button>
 			<GroupBox Name="SortGroup" Header="Sort by:">
 				<StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center">
 					<RadioButton IsChecked="True">R</RadioButton>

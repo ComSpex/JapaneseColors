@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using System.IO;
 using System.ComponentModel;
 using Drill_Color;
+using System.Media;
 
 namespace WpfAppone {
 	/// <summary>
@@ -92,7 +93,7 @@ namespace WpfAppone {
 		/// </summary>
 		/// <param name="Core">KeyValuePair<string,NamedSolidColorBrush></param>
 		/// <returns>UniformGrid</returns>
-		private object plateOf(KeyValuePair<string,NamedSolidColorBrush> Core) {
+		public UIElement plateOf(KeyValuePair<string,NamedSolidColorBrush> Core) {
 			return plateOf(Core.Key,Core.Value.Name,Core.Value.Brush);
 		}
 		/// <summary>
@@ -102,7 +103,7 @@ namespace WpfAppone {
 		/// <param name="name">読み</param>
 		/// <param name="brush">色SolidColorBrush</param>
 		/// <returns></returns>
-		private object plateOf(string key,string name,Brush brush) {
+		protected virtual UIElement plateOf(string key,string name,Brush brush) {
 			SolidColorBrush B = brush as SolidColorBrush;
 			CMYK cmyk = new CMYK(B.Color);
 			HSL hsl = new HSL(B.Color);
@@ -205,13 +206,13 @@ namespace WpfAppone {
 		/// </summary>
 		/// <param name="core">KeyValuePair<string,NamedSolidColorBrush></param>
 		/// <returns>StackPanel</returns>
-		private object swatchOf(KeyValuePair<string,NamedSolidColorBrush> core) {
+		public Panel swatchOf(KeyValuePair<string,NamedSolidColorBrush> core) {
 			return swatchOf(core.Value.Show(core.Key),core.Value.Brush);
 		}
-		private object swatchOf(string kanji,NamedSolidColorBrush nscb) {
+		protected virtual Panel swatchOf(string kanji,NamedSolidColorBrush nscb) {
 			return swatchOf(NamedSolidColorBrush.Show(kanji,nscb.Brush,nscb.Names),nscb.Brush);
 		}
-		private object swatchOf(string any_note,Brush color) {
+		protected virtual Panel swatchOf(string any_note,Brush color) {
 			StackPanel sp=new StackPanel();
 			sp.Orientation=Orientation.Horizontal;
 
@@ -350,9 +351,27 @@ namespace WpfAppone {
 		protected override void OnClosing(CancelEventArgs e) {
 			foreach(Window win in wins.Values) {
 				win.Owner=this;
-				//win.Close();
 			}
 			base.OnClosing(e);
+		}
+		public bool Terminate() {
+			bool cancelled = true;
+			if(MessageBoxResult.OK==MessageBox.Show("Are you sure to close all the windows?",Title,MessageBoxButton.OKCancel,MessageBoxImage.Question)) {
+				Close();
+				cancelled=false;
+			}
+			return cancelled;
+		}
+		private void Tile_Click(object sender,RoutedEventArgs e) {
+			TileWindows();
+		}
+		private void Erase_Click(object sender,RoutedEventArgs e) {
+			foreach(Child child in forms.Values) {
+				child.Visibility=Visibility.Hidden;
+				child.Close();
+			}
+			forms.Clear();
+			SystemSounds.Hand.Play();
 		}
 	}
 }
