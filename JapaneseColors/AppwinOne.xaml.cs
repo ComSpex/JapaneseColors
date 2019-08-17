@@ -28,6 +28,7 @@ namespace WpfAppone {
 			Application.Current.SessionEnding+=Current_SessionEnding;
 			Application.Current.Exit+=Current_Exit;
 			InitializeComponent();
+			this.Topmost=true;
 			this.Height=1250;
 			this.Width=820;
 			NamedSolidColorBrush.Invert=

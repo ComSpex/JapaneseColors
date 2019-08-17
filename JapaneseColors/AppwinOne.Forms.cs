@@ -26,12 +26,10 @@ namespace WpfAppone {
 			} else {
 				throw new InvalidOperationException("cannot read out 'W x H'!!");
 			}
-			if(forms.Count==0) {
-				GenerateWindows(Limit);
-			}
+			int wnum = ColorIndex;
+			GenerateWindows(Limit);
 			int wide_limit = (int)(r.Width/wide);
 			int high_limit = (int)(r.Height/high);
-			int wnum = 0;
 			int y = r.Top;
 			for(int row = 0;row<high;row++) {
 				int x = r.Left;
@@ -46,7 +44,6 @@ namespace WpfAppone {
 				}
 				y+=high_limit;
 			}
-			this.Topmost=true;
 		}
 		private void MoveWindow(Child f,int x,int y,int wide_limit,int high_limit) {
 			try {
@@ -79,11 +76,12 @@ namespace WpfAppone {
 				}
 			}
 			for(int i = 0;i<limit;++i) {
-				if(ColorIndex>=Jc.Cores.Count()) {
+				if(ColorIndex>=listValues.Count) {
 					ColorIndex=0;
 				}
-				string title = String.Format("Child-{0:000}",1+i);
-				Child f = new Child(this,title,new KeyValuePair<string, NamedSolidColorBrush>(listKeys[ColorIndex],listValues[ColorIndex]));
+				string jname = listKeys[ColorIndex];
+				string title = String.Format("Child-Color#{0:000}-{1}",ColorIndex,jname);
+				Child f = new Child(this,title,new KeyValuePair<string, NamedSolidColorBrush>(jname,listValues[ColorIndex]));
 				f.Show();
 				forms.Add(title,f);
 				++ColorIndex;
