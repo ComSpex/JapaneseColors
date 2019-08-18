@@ -28,7 +28,7 @@ namespace WpfAppone {
 			Application.Current.SessionEnding+=Current_SessionEnding;
 			Application.Current.Exit+=Current_Exit;
 			InitializeComponent();
-			this.Topmost=true;
+			//this.Topmost=true;
 			this.Height=1250;
 			this.Width=820;
 			NamedSolidColorBrush.Invert=
@@ -355,23 +355,31 @@ namespace WpfAppone {
 			}
 			base.OnClosing(e);
 		}
+		bool isTerminated = false;
 		public bool Terminate() {
 			bool cancelled = true;
-			if(MessageBoxResult.OK==MessageBox.Show("Are you sure to close all the windows?",Title,MessageBoxButton.OKCancel,MessageBoxImage.Question)) {
-				Close();
-				cancelled=false;
+			if(!isTerminated) {
+				isTerminated=true;
+				if(MessageBoxResult.OK==MessageBox.Show("Are you sure to close all the windows?",Title,MessageBoxButton.OKCancel,MessageBoxImage.Question)) {
+					Close();
+					cancelled=false;
+				}
+				return cancelled;
+			} else {
+				return false;
 			}
-			return cancelled;
 		}
 		private void Tile_Click(object sender,RoutedEventArgs e) {
+			isTerminated=false;
 			TileWindows();
+			Activate();
 		}
 		private void Erase_Click(object sender,RoutedEventArgs e) {
 			foreach(Child child in forms.Values) {
-				child.Visibility=Visibility.Hidden;
+				//child.Visibility=Visibility.Hidden;
 				child.Close();
 			}
-			forms.Clear();
+			//forms.Clear();
 			SystemSounds.Hand.Play();
 		}
 	}

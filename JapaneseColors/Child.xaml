@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfAppone"
         mc:Ignorable="d"
-        Title="Child" Height="100" Width="200">
+        Title="Child" Height="100" Width="200" ShowInTaskbar="False">
 	<Grid>
   </Grid>
 </Window>
