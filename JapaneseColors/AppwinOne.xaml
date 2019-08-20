@@ -1,7 +1,7 @@
 ﻿<Window x:Class="WpfAppone.AppwinOne"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="AppwinOne" Height="320" Width="820">
+        Title="AppwinOne" Height="320" Width="820" Topmost="True">
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="*"/>
@@ -29,8 +29,8 @@
 			</StackPanel.Resources>
 			<Label Height="26" VerticalAlignment="Center">W x H: </Label>
 			<TextBox Name="wxh" Width="50" Height="26">10 x 10</TextBox>
-			<Button Click="Tile_Click">Tile</Button>
-			<Button Click="Erase_Click">Erase</Button>
+			<Button Name="tile" Click="Tile_Click">Tile</Button>
+			<Button Name="erase" Click="Erase_Click">Erase</Button>
 			<GroupBox Name="SortGroup" Header="Sort by:">
 				<StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center">
 					<RadioButton IsChecked="True">R</RadioButton>

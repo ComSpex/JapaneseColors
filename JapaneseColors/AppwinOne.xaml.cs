@@ -17,6 +17,8 @@ using System.IO;
 using System.ComponentModel;
 using Drill_Color;
 using System.Media;
+using System.Runtime.InteropServices;
+using System.Windows.Interop;
 
 namespace WpfAppone {
 	/// <summary>
@@ -37,6 +39,7 @@ namespace WpfAppone {
 			fillIndice();
 			updateTitle();
 			SetLListBrush(exte);
+			this.erase.IsEnabled=false;
 		}
 		private void Current_Exit(object sender,ExitEventArgs e) {
 			int exitCode = e.ApplicationExitCode;
@@ -353,6 +356,9 @@ namespace WpfAppone {
 			foreach(Window win in wins.Values) {
 				win.Owner=this;
 			}
+			foreach(KeyValuePair<string,Child> form in forms) {
+				form.Value.Owner=this;
+			}
 			base.OnClosing(e);
 		}
 		bool isTerminated = false;
@@ -372,15 +378,25 @@ namespace WpfAppone {
 		private void Tile_Click(object sender,RoutedEventArgs e) {
 			isTerminated=false;
 			TileWindows();
-			Activate();
+			BringWindowToTop(new WindowInteropHelper(this).EnsureHandle());
+			this.erase.IsEnabled=true;
+			this.tile.IsEnabled=false;
 		}
+
+		[DllImport("user32.dll",SetLastError = true)]
+		static extern bool BringWindowToTop(IntPtr hWnd);
+
 		private void Erase_Click(object sender,RoutedEventArgs e) {
-			foreach(Child child in forms.Values) {
-				//child.Visibility=Visibility.Hidden;
-				child.Close();
+			foreach(KeyValuePair<string,Child> form in forms) {
+				form.Value.Close();
 			}
-			//forms.Clear();
+			// Why the top window remains unclosed...
+			foreach(KeyValuePair<string,Child> form in forms) {
+				form.Value.Close();
+			}
+			this.tile.IsEnabled=true;
 			SystemSounds.Hand.Play();
+			this.erase.IsEnabled=false;
 		}
 	}
 }

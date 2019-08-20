@@ -32,7 +32,8 @@ namespace WpfAppone {
 			Content=box;
 			Background=(box.Child as UniformGrid).Background;
 			ToolTip=boss.swatchOf(Core);
-			this.Owner=appwinOne;
+			// Do not set Owner, or Owner window is hidden.
+			//this.Owner=appwinOne;
 		}
 		protected override void OnClosing(CancelEventArgs e) {
 			e.Cancel=boss.Terminate();
