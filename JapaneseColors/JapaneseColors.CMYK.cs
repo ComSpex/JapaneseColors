@@ -81,8 +81,7 @@ namespace WpfAppone {
 		public static NamedSolidColorBrush 鳩羽色 = new NamedSolidColorBrush(141,107,153,"はとばいろ");
 		public static NamedSolidColorBrush 雉鳩色 = new NamedSolidColorBrush(141,107,153,"きじばといろ",true);
 		public static NamedSolidColorBrush 源氏鼠 = new NamedSolidColorBrush(141,107,153,"げんじねず",true);
-		public static NamedSolidColorBrush 葡萄鼠２ = new NamedSolidColorBrush(70,54,77,"ぶどうねず｜み");
-		public static NamedSolidColorBrush 葡萄鼠３ = new NamedSolidColorBrush(70,54,77,"えびねず｜み",true);
+		public static NamedSolidColorBrush 葡萄鼠２ = new NamedSolidColorBrush(70,54,77,"ぶどうねず｜み,えびねず｜み");
 		public static NamedSolidColorBrush 臙脂鼠 = new NamedSolidColorBrush(102,66,93,"えんじねず");
 		public static NamedSolidColorBrush 紫鳶２ = new NamedSolidColorBrush(77,38,67,"むらさきとび");
 		public static NamedSolidColorBrush 桑の実色２ = new NamedSolidColorBrush(51,10,51,"くわのみいろ");
@@ -107,14 +106,11 @@ namespace WpfAppone {
 		public static NamedSolidColorBrush 赤紫２ = new NamedSolidColorBrush(51,0,38,"あかむらさき");
 		public static NamedSolidColorBrush 洋紅色 = new NamedSolidColorBrush(235,0,87,"ようこうしょく");
 		public static NamedSolidColorBrush 洋紅 = new NamedSolidColorBrush(235,0,87,"ようべに",true);
-		public static NamedSolidColorBrush 紅２ = new NamedSolidColorBrush(242,24,107,"べに");
-		public static NamedSolidColorBrush 紅３ = new NamedSolidColorBrush(242,24,107,"くれない",true);
+		public static NamedSolidColorBrush 紅２ = new NamedSolidColorBrush(242,24,107,"べに,くれない,もみ");
 		public static NamedSolidColorBrush 紅赤 = new NamedSolidColorBrush(255,0,128,"べにあか");
 		public static NamedSolidColorBrush 火裏紅 = new NamedSolidColorBrush(230,23,126,"かりこう");
-		public static NamedSolidColorBrush 梅重 = new NamedSolidColorBrush(255,51,153,"うめがさね");
-		public static NamedSolidColorBrush 梅重２ = new NamedSolidColorBrush(255,51,153,"うめかさね",true);
+		public static NamedSolidColorBrush 梅重 = new NamedSolidColorBrush(255,51,153,"うめがさね,うめかさね");
 		public static NamedSolidColorBrush 紅絹 = new NamedSolidColorBrush(217,39,106,"もみ");
-		public static NamedSolidColorBrush 紅４ = new NamedSolidColorBrush(217,39,106,"もみ",true);
 		public static NamedSolidColorBrush 赤紅２ = new NamedSolidColorBrush(230,11,67,"あかべに");
 		public static NamedSolidColorBrush 莟紅梅 = new NamedSolidColorBrush(255,38,145,"つぼみこうばい");
 		// 3
@@ -144,9 +140,7 @@ namespace WpfAppone {
 		public static NamedSolidColorBrush 梅鼠３ = new NamedSolidColorBrush(178,143,161,"うめねず｜み");
 		public static NamedSolidColorBrush 薄梅鼠 = new NamedSolidColorBrush(217,195,206,"うすうめねず｜み");
 		public static NamedSolidColorBrush 浅蘇芳 = new NamedSolidColorBrush(204,102,153,"あさきすおう,あさすおう");
-		public static NamedSolidColorBrush 深退紅 = new NamedSolidColorBrush(204,102,153,"ふかきあらそめ",true);
-		public static NamedSolidColorBrush 深退紅２ = new NamedSolidColorBrush(204,102,153,"ふかきたいこう",true);
-		public static NamedSolidColorBrush 深退紅３ = new NamedSolidColorBrush(204,102,153,"こきあらぞめ",true);
+		public static NamedSolidColorBrush 深退紅 = new NamedSolidColorBrush(204,102,153,"ふかきあらそめ,ふかきたいこう,こきあらぞめ",true);
 		public static NamedSolidColorBrush 紅鳶色 = new NamedSolidColorBrush(255,128,191,"べにとびいろ",true);
 		public static NamedSolidColorBrush 絳紅 = new NamedSolidColorBrush(140,91,115,"チャンツー");
 		public static NamedSolidColorBrush 帯紅色２ = new NamedSolidColorBrush(153,76,115,"たいこうしょく");
@@ -169,8 +163,7 @@ namespace WpfAppone {
 		public static NamedSolidColorBrush 醤色 = new NamedSolidColorBrush(64,19,41,"ひしおいろ",true);
 		public static NamedSolidColorBrush 猩々緋２ = new NamedSolidColorBrush(242,36,87,"しょうじょうひ");
 		public static NamedSolidColorBrush 赤 = new NamedSolidColorBrush(242,12,41,"あか");
-		public static NamedSolidColorBrush 土耳古赤 = new NamedSolidColorBrush(242,0,61,"とるこあか");
-		public static NamedSolidColorBrush 土耳古赤２ = new NamedSolidColorBrush(242,0,61,"ターコイズ・レッド");
+		public static NamedSolidColorBrush 土耳古赤 = new NamedSolidColorBrush(242,0,61,"とるこあか,ターコイズ・レッド");
 		public static NamedSolidColorBrush 赤２ = new NamedSolidColorBrush(255,0,0,"あか");
 		public static NamedSolidColorBrush 金赤 = new NamedSolidColorBrush(255,0,0,"きんあか",true);
 		public static NamedSolidColorBrush 真赤 = new NamedSolidColorBrush(255,0,0,"まあか,まっか",true);
@@ -193,7 +186,7 @@ namespace WpfAppone {
 		public static NamedSolidColorBrush 甚三紅 = new NamedSolidColorBrush(217,33,78,"じんざもみ");
 		public static NamedSolidColorBrush 甚三紅絹 = new NamedSolidColorBrush(217,33,78,"じんざもみ",true);
 		public static NamedSolidColorBrush 紅赤２ = new NamedSolidColorBrush(204,0,51,"べにあか");
-		public static NamedSolidColorBrush 紅５ = new NamedSolidColorBrush(242,46,24,"べに");
+		public static NamedSolidColorBrush 紅３ = new NamedSolidColorBrush(242,46,24,"べに");
 		public static NamedSolidColorBrush 紅唐 = new NamedSolidColorBrush(217,54,95,"べにとう");
 		public static NamedSolidColorBrush 唐桟 = new NamedSolidColorBrush(217,54,95,"とうざん",true);
 		public static NamedSolidColorBrush 真朱 = new NamedSolidColorBrush(230,23,23,"しんしゅ,まそほ");
