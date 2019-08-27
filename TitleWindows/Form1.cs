@@ -12,7 +12,14 @@ namespace TileWindows {
 		Dictionary<string,Form> forms = new Dictionary<string,Form>();
 		public Form1() {
 			InitializeComponent();
+			var result = MyMath.ratio(3900,2160);
+			this.Text=String.Format("ratio 3900:2160 = {0}",ToRatio(result));
 		}
+		private string ToRatio(Tuple<int,int> result) {
+			string text = String.Format("{0}:{1}",result.Item1,result.Item2);
+			return text;
+		}
+
 		protected override void OnShown(EventArgs e) {
 			base.OnShown(e);
 			Refresh();

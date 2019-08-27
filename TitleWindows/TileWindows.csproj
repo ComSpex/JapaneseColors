@@ -71,7 +71,6 @@
     <Compile Include="IChild.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WindowInfo.cs" />
     <EmbeddedResource Include="Child.resx">
       <DependentUpon>Child.cs</DependentUpon>
     </EmbeddedResource>
@@ -100,6 +99,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ConsoleLCMandGCD\ConsoleLCMandGCD.fsproj">
+      <Project>{e63107f1-c3b7-4ca4-81b4-f4269f4188bb}</Project>
+      <Name>ConsoleLCMandGCD</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Drill_Color\Drill_Color.csproj">
       <Project>{1c6fd348-786c-4606-9490-1f6236fb066b}</Project>
       <Name>Drill_Color</Name>
