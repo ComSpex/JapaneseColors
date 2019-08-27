@@ -81,21 +81,6 @@ namespace WpfAppone {
 			clea.IsEnabled=false;
 			this.Cursor=keep;
 		}
-		private void fillColors(string head,bool clean=false) {
-			if(clean){
-				R.Items.Clear();
-			}
-			foreach(KeyValuePair<string,NamedSolidColorBrush> Core in Jc.Cores) {
-				if(Core.Value.NameStartsWith(head)){
-					ListBoxItem item=new ListBoxItem();
-					item.HorizontalContentAlignment=HorizontalAlignment.Stretch;
-					item.Content=plateOf(Core);
-					item.ToolTip=swatchOf(Core);
-					R.Items.Add(item);
-				}
-			}
-			updateTitle();
-		}
 		/// <summary>
 		/// Descriptive user interface for Content
 		/// </summary>
@@ -276,8 +261,71 @@ namespace WpfAppone {
 			updateTitle();
 			this.Cursor=keep;
 		}
-		private void Button_Click(object sender,RoutedEventArgs e) {
-			ClearListR();
+		private void fillColors(string head,bool clean = false) {
+			if(clean) {
+				R.Items.Clear();
+			}
+			foreach(KeyValuePair<string,NamedSolidColorBrush> Core in Jc.Cores) {
+				if(Core.Value.NameStartsWith(head)) {
+					ListBoxItem item = new ListBoxItem();
+					item.HorizontalContentAlignment=HorizontalAlignment.Stretch;
+					item.Content=plateOf(Core);
+					item.ToolTip=swatchOf(Core);
+					if(!R.Items.Contains(item)) {
+						R.Items.Add(item);
+					}
+				}
+			}
+			updateTitle();
+		}
+		/// <summary>
+		/// Kanji supportive version of fillColors()
+		/// </summary>
+		/// <param name="texs"></param>
+		/// <param name="clean"></param>
+		private void fillColorsKanji(List<string> texs,bool clean=false) {
+			Cursor keep = this.Cursor;
+			this.Cursor=Cursors.Wait;
+			if(clean) {
+				R.Items.Clear();
+			}
+			int index=0;
+			foreach(string tex in texs) {
+				fillColorsKanji(tex,ref index);
+			}
+			if(clean&&texs.Count==0) {
+				fillColors();
+			}
+			updateTitle();
+			this.Cursor=keep;
+		}
+		private void fillColorsKanji(string tex,ref int index) {
+			int ii = 0;
+			List<NamedSolidColorBrush> checkers = new List<NamedSolidColorBrush>();
+			foreach(KeyValuePair<string,NamedSolidColorBrush> Core in Jc.Cores) {
+				if(++ii<=index) {
+					continue;
+				}
+				++index;
+				if(checkers.Contains(Core.Value)) {
+					SystemSounds.Beep.Play();
+					continue;
+				}
+				checkers.Add(Core.Value);
+				if(Core.Value.Kanji.Contains(tex)) {
+					ListBoxItem item = new ListBoxItem();
+					item.HorizontalContentAlignment=HorizontalAlignment.Stretch;
+					item.Content=plateOf(Core);
+					item.ToolTip=swatchOf(Core);
+					if(!R.Items.Contains(item)) {
+						R.Items.Add(item);
+					}
+					return;
+				}
+			}
+		}
+		private void Clear_Click(object sender,RoutedEventArgs e) {
+			ClearList();
 			partofYomi.Text=String.Empty;
 		}
 		private void CheckBox_Checked(object sender,RoutedEventArgs e) {
@@ -426,7 +474,11 @@ namespace WpfAppone {
 				}
 			}
 			if(texs.Count>0) {
-				fillColors(texs,true);
+				if(isKanji) {
+					fillColorsKanji(texs,true);
+				} else {
+					fillColors(texs,true);
+				}
 				clea.IsEnabled=true;
 			} else {
 				MessageBox.Show(String.Format("cannot find any of '{0}'",partofYomi.Text),this.Title,MessageBoxButton.OK,MessageBoxImage.Information);
@@ -436,6 +488,7 @@ namespace WpfAppone {
 		private void ClearList() {
 			ClearListR();
 			ClearListL();
+			fillColors();
 		}
 	}
 }

@@ -86,7 +86,7 @@
 				</StackPanel>
 				<Button Name="clea" Content="Clear" Width="60" Height="24" 
 								HorizontalAlignment="Right" VerticalAlignment="Center" 
-								Margin="0 0 4 0" Click="Button_Click" IsEnabled="False"
+								Margin="0 0 4 0" Click="Clear_Click" IsEnabled="False"
 								Grid.Column="3"/>
 			</Grid>
 		</Grid>

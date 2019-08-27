@@ -5,6 +5,12 @@ using System.Windows.Media;
 namespace WpfAppone {
 	public partial class NamedSolidColorBrush:IEquatable<NamedSolidColorBrush>, IComparable<NamedSolidColorBrush> {
 		public bool Equals(NamedSolidColorBrush other) {
+			if(this.Kanji!=null&&other.Kanji!=null) {
+				return
+					this.Kanji.Trim()==other.Kanji.Trim()&&
+					this.Name.Trim()==other.Name.Trim()&&
+					this.Brush.Color==other.Brush.Color;
+			}
 			return this.Brush.Color==other.Brush.Color;
 		}
 		public enum HowCompare {
