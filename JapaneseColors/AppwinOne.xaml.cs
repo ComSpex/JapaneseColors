@@ -242,7 +242,8 @@ namespace WpfAppone {
 				fillColors(texs);
 			}else if(texs.Count==1){
 				bool clean=!(incl.IsChecked??false);
-				fillColors(texs[0],clean);
+				int index = -1;
+				fillColors(texs[0],ref index,clean);
 			}
 			e.Handled=true;
 		}
@@ -252,8 +253,9 @@ namespace WpfAppone {
 			if(clean) {
 				R.Items.Clear();
 			}
+			int index = 0;
 			foreach(string tex in texs){
-				fillColors(tex,false);
+				fillColors(tex,ref index,false);
 			}
 			if(clean&&texs.Count==0) {
 				fillColors();
@@ -261,11 +263,18 @@ namespace WpfAppone {
 			updateTitle();
 			this.Cursor=keep;
 		}
-		private void fillColors(string head,bool clean = false) {
+		private void fillColors(string head,ref int index,bool clean = false) {
 			if(clean) {
 				R.Items.Clear();
 			}
+			int ii = 0;
 			foreach(KeyValuePair<string,NamedSolidColorBrush> Core in Jc.Cores) {
+				if(index>=0) {
+					if(++ii<=index) {
+						continue;
+					}
+					++index;
+				}
 				if(Core.Value.NameStartsWith(head)) {
 					ListBoxItem item = new ListBoxItem();
 					item.HorizontalContentAlignment=HorizontalAlignment.Stretch;
@@ -273,6 +282,9 @@ namespace WpfAppone {
 					item.ToolTip=swatchOf(Core);
 					if(!R.Items.Contains(item)) {
 						R.Items.Add(item);
+						if(index>=0) {
+							return;
+						}
 					}
 				}
 			}
