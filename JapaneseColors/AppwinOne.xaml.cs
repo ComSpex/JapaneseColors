@@ -66,8 +66,11 @@ namespace WpfAppone {
 		private void fillColors() {
 			Cursor keep = this.Cursor;
 			this.Cursor=Cursors.Wait;
+			List<NamedSolidColorBrush> checkers = new List<NamedSolidColorBrush>();
 			R.Items.Clear();
 			foreach(KeyValuePair<string,NamedSolidColorBrush> Core in Jc.Cores){
+				if(checkers.Contains(Core.Value)) { continue; }
+				checkers.Add(Core.Value);
 				ListBoxItem item=new ListBoxItem();
 				item.HorizontalContentAlignment=HorizontalAlignment.Stretch;
 				item.Content=plateOf(Core);
@@ -75,9 +78,10 @@ namespace WpfAppone {
 				R.Items.Add(item);
 			}
 			updateTitle();
+			clea.IsEnabled=false;
 			this.Cursor=keep;
 		}
-		private void fillColors(string head,bool clean=true) {
+		private void fillColors(string head,bool clean=false) {
 			if(clean){
 				R.Items.Clear();
 			}
@@ -274,6 +278,7 @@ namespace WpfAppone {
 		}
 		private void Button_Click(object sender,RoutedEventArgs e) {
 			ClearListR();
+			partofYomi.Text=String.Empty;
 		}
 		private void CheckBox_Checked(object sender,RoutedEventArgs e) {
 			CheckBox cb=sender as CheckBox;
@@ -397,6 +402,40 @@ namespace WpfAppone {
 			this.tile.IsEnabled=true;
 			SystemSounds.Hand.Play();
 			this.erase.IsEnabled=false;
+		}
+		private void PartOfYomi_Click(object sender,RoutedEventArgs e) {
+			if(!incl.IsChecked.Value) {
+				texs.Clear();
+			}
+			if(String.IsNullOrEmpty(partofYomi.Text)) {
+				ClearList();
+				return;
+			}
+			bool isKanji = false;
+			foreach(ListBoxItem item in R.Items) {
+				if(item==null) { continue; }
+				if(!(item.Content is UniformGrid ug)) { continue; }
+				if(!(ug.Children[1] is TextBlock hira)) { continue; }
+				if(hira.Text.Contains(partofYomi.Text)) {
+					texs.Add(hira.Text);
+				}
+				if(!(ug.Children[0] is TextBlock kanj)) { continue; }
+				if(kanj.Text.Contains(partofYomi.Text)) {
+					texs.Add(kanj.Text);
+					isKanji=true;
+				}
+			}
+			if(texs.Count>0) {
+				fillColors(texs,true);
+				clea.IsEnabled=true;
+			} else {
+				MessageBox.Show(String.Format("cannot find any of '{0}'",partofYomi.Text),this.Title,MessageBoxButton.OK,MessageBoxImage.Information);
+			}
+			e.Handled=true;
+		}
+		private void ClearList() {
+			ClearListR();
+			ClearListL();
 		}
 	}
 }

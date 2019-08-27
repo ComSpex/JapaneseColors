@@ -6,6 +6,7 @@
 		<Grid.RowDefinitions>
 			<RowDefinition Height="*"/>
 			<RowDefinition Height="38"/>
+			<RowDefinition Height="38"/>
 		</Grid.RowDefinitions>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="70"/>
@@ -21,16 +22,7 @@
 				<Style TargetType="CheckBox">
 					<EventSetter Event="Click" Handler="CheckBox_Checked"/>
 				</Style>
-				<Style TargetType="Button">
-					<Setter Property="Width" Value="60"/>
-					<Setter Property="Height" Value="26" />
-					<Setter Property="Margin" Value="2 0 2 0"/>
-				</Style>
 			</StackPanel.Resources>
-			<Label Height="26" VerticalAlignment="Center">W x H: </Label>
-			<TextBox Name="wxh" Width="50" Height="26">10 x 10</TextBox>
-			<Button Name="tile" Click="Tile_Click">Tile</Button>
-			<Button Name="erase" Click="Erase_Click">Erase</Button>
 			<GroupBox Name="SortGroup" Header="Sort by:">
 				<StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center">
 					<RadioButton IsChecked="True">R</RadioButton>
@@ -43,12 +35,26 @@
 					<RadioButton>CMYK</RadioButton>
 					<RadioButton>HSL</RadioButton>
 					<RadioButton>HSV</RadioButton>
+					<RadioButton>Kanji</RadioButton>
 					<RadioButton>Yomi</RadioButton>
 					<CheckBox IsChecked="True">Invert</CheckBox>
 				</StackPanel>
 			</GroupBox>
 		</StackPanel>
-		<ListBox Grid.Column="0" Grid.RowSpan="2" Name="L" SelectionChanged="L_SelectionChanged" SelectionMode="Extended" />
+		<StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+			<StackPanel.Resources>
+				<Style TargetType="Button">
+					<Setter Property="Width" Value="60"/>
+					<Setter Property="Height" Value="26" />
+					<Setter Property="Margin" Value="2 0 2 0"/>
+				</Style>
+			</StackPanel.Resources>
+			<TextBlock Height="26" VerticalAlignment="Center">W x H:</TextBlock>
+			<TextBox Name="wxh" Width="50" Height="26">10 x 20</TextBox>
+			<Button Name="tile" Click="Tile_Click">Tile</Button>
+			<Button Name="erase" Click="Erase_Click">Erase</Button>
+		</StackPanel>
+		<ListBox Grid.Column="0" Grid.RowSpan="3" Name="L" SelectionChanged="L_SelectionChanged" SelectionMode="Extended" />
 		<Grid Grid.Column="1">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="200*"/>
@@ -59,6 +65,7 @@
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="80" />
 					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="250"/>
 					<ColumnDefinition Width="70"/>
 				</Grid.ColumnDefinitions>
 				<CheckBox Name="incl" Content="Inclusive" VerticalAlignment="Center" 
@@ -73,13 +80,17 @@
 					<RadioButton Content="Multiple" Background="SlateBlue"/>
 					<RadioButton Name="exte" Content="Extended" Background="Coral" Tag="Snow" IsChecked="true"/>
 				</UniformGrid>
+				<StackPanel Grid.Column="2" Orientation="Horizontal">
+					<TextBox Name="partofYomi" Width="100" Height="26"></TextBox>
+					<Button Width="60" Height="24" Click="PartOfYomi_Click" Margin="10 0 0 0">Search</Button>
+				</StackPanel>
 				<Button Name="clea" Content="Clear" Width="60" Height="24" 
 								HorizontalAlignment="Right" VerticalAlignment="Center" 
 								Margin="0 0 4 0" Click="Button_Click" IsEnabled="False"
-								Grid.Column="2"/>
+								Grid.Column="3"/>
 			</Grid>
 		</Grid>
 		<GridSplitter HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="8" 
-									Grid.Column="1" Grid.RowSpan="2" Name="split" Background="#FFC3D1AC" />
+									Grid.Column="1" Grid.RowSpan="3" Name="split" Background="#FFC3D1AC" />
 	</Grid>
 </Window>

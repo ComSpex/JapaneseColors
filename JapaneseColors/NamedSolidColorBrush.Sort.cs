@@ -18,7 +18,8 @@ namespace WpfAppone {
 			CMYK,
 			HSL,
 			HSV,
-			Yomi
+			Yomi,
+			Kanji
 		}
 		public static HowCompare howCompare = HowCompare.R;
 		protected static int reverse = -1;
@@ -88,17 +89,20 @@ namespace WpfAppone {
 					CMYK L = new CMYK(this.Brush.Color);
 					CMYK R = new CMYK(other.Brush.Color);
 					return L.CompareTo(R);
-				//break;
+					//break;
 				case HowCompare.HSL:
 					HSL hL = new HSL(this.Brush.Color);
 					HSL hR = new HSL(other.Brush.Color);
 					return hL.CompareTo(hR);
-				//break;
+					//break;
 				case HowCompare.HSV:
 					HSV vL = new HSV(this.Brush.Color);
 					HSV vR = new HSV(other.Brush.Color);
 					return vL.CompareTo(vR);
-				//break;
+					//break;
+				case HowCompare.Kanji:
+					return this.Kanji.CompareTo(other.Kanji)*reverse;
+					//break;
 				case HowCompare.Yomi:
 #if true
 					int ii=this.Name.CompareTo(other.Name)*reverse;
