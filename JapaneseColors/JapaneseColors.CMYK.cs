@@ -399,7 +399,7 @@ namespace WpfAppone {
 		public static NamedSolidColorBrush 連葉染 = new NamedSolidColorBrush(153,72,46,"れんようぞめ",true);
 		public static NamedSolidColorBrush 連葉 = new NamedSolidColorBrush(153,72,46,"れんよう",true);
 		public static NamedSolidColorBrush 橡色 = new NamedSolidColorBrush(178,91,54,"つるばみいろ");
-		public static NamedSolidColorBrush 橡染 = new NamedSolidColorBrush(178,91,54,"つすばみぞめ",true);
+		public static NamedSolidColorBrush 橡染 = new NamedSolidColorBrush(178,91,54,"つるばみぞめ",true);
 		public static NamedSolidColorBrush 椎柴 = new NamedSolidColorBrush(178,91,54,"しいしば",true);
 		public static NamedSolidColorBrush 梅茶 = new NamedSolidColorBrush(204,112,82,"うめちゃ");
 		public static NamedSolidColorBrush 埴 = new NamedSolidColorBrush(178,89,36,"はに");

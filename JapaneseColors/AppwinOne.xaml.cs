@@ -229,7 +229,7 @@ namespace WpfAppone {
 			}
 			texs.Clear();
 			foreach(var item in e.AddedItems){
-				TextBlock tb=((ListBoxItem)item).Content as TextBlock;
+				TextBlock tb =((ListBoxItem)item).Content as TextBlock;
 				if(tb!=null){
 					if(tb.Text.Contains("全て")) {
 						fillColors();
@@ -276,10 +276,11 @@ namespace WpfAppone {
 					++index;
 				}
 				if(Core.Value.NameStartsWith(head)) {
-					ListBoxItem item = new ListBoxItem();
-					item.HorizontalContentAlignment=HorizontalAlignment.Stretch;
-					item.Content=plateOf(Core);
-					item.ToolTip=swatchOf(Core);
+					ListBoxItem item = new ListBoxItem {
+						HorizontalContentAlignment=HorizontalAlignment.Stretch,
+						Content=plateOf(Core),
+						ToolTip=swatchOf(Core)
+					};
 					if(!R.Items.Contains(item)) {
 						R.Items.Add(item);
 						if(index>=0) {
@@ -325,10 +326,11 @@ namespace WpfAppone {
 				}
 				checkers.Add(Core.Value);
 				if(Core.Value.Kanji.Contains(tex)) {
-					ListBoxItem item = new ListBoxItem();
-					item.HorizontalContentAlignment=HorizontalAlignment.Stretch;
-					item.Content=plateOf(Core);
-					item.ToolTip=swatchOf(Core);
+					ListBoxItem item = new ListBoxItem {
+						HorizontalContentAlignment=HorizontalAlignment.Stretch,
+						Content=plateOf(Core),
+						ToolTip=swatchOf(Core)
+					};
 					if(!R.Items.Contains(item)) {
 						R.Items.Add(item);
 					}
@@ -373,6 +375,11 @@ namespace WpfAppone {
 					name=name.Replace("~","n");
 				}
 				NamedSolidColorBrush.howCompare=(NamedSolidColorBrush.HowCompare)Enum.Parse(typeof(NamedSolidColorBrush.HowCompare),name);
+				texs.Clear();
+				foreach(ListBoxItem item in R.Items) {
+					UniformGrid ug = item.Content as UniformGrid;
+					texs.Add(((TextBlock)ug.Children[1]).Text);
+				}
 				fillColors(texs,true);
 				return;
 			}

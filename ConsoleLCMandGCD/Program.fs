@@ -1,6 +1,7 @@
 ﻿// Learn more about F# at http://fsharp.org
 // See the 'F# Tutorial' project for more help.
 
+// https://connelhooley.uk/blog/2017/04/30/f-sharp-to-c-sharp
 module MyMath
 // https://stackoverflow.com/questions/46914816/recursion-in-f-expected-type-int-but-got-type-int-list-int
 let rec gcd a b=
