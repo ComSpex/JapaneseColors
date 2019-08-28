@@ -239,7 +239,7 @@ namespace WpfAppone {
 				}
 			}
 			if(texs.Count>1){
-				fillColors(texs);
+				fillColors(texs,0);
 			}else if(texs.Count==1){
 				bool clean=!(incl.IsChecked??false);
 				int index = -1;
@@ -247,13 +247,13 @@ namespace WpfAppone {
 			}
 			e.Handled=true;
 		}
-		private void fillColors(List<string> texs,bool clean=false) {
+		private void fillColors(List<string> texs,int top,bool clean=false) {
 			Cursor keep = this.Cursor;
 			this.Cursor=Cursors.Wait;
 			if(clean) {
 				R.Items.Clear();
 			}
-			int index = 0;
+			int index = top;
 			foreach(string tex in texs){
 				fillColors(tex,ref index,false);
 			}
@@ -268,7 +268,10 @@ namespace WpfAppone {
 				R.Items.Clear();
 			}
 			int ii = 0;
+			List<NamedSolidColorBrush> checkers = new List<NamedSolidColorBrush>();
 			foreach(KeyValuePair<string,NamedSolidColorBrush> Core in Jc.Cores) {
+				if(checkers.Contains(Core.Value)) { continue; }
+				checkers.Add(Core.Value);
 				if(index>=0) {
 					if(++ii<=index) {
 						continue;
@@ -347,7 +350,7 @@ namespace WpfAppone {
 			if((string)cb.Content=="Invert") {
 				CMYK.Invert=
 				NamedSolidColorBrush.Invert=cb.IsChecked.Value;
-				fillColors(texs,true);
+				fillColors(texs,0,true);
 				return;
 			}
 			clea.IsEnabled=cb.IsChecked??false;
@@ -380,7 +383,7 @@ namespace WpfAppone {
 					UniformGrid ug = item.Content as UniformGrid;
 					texs.Add(((TextBlock)ug.Children[1]).Text);
 				}
-				fillColors(texs,true);
+				fillColors(texs,0,true);
 				return;
 			}
 			L.SelectionMode=(SelectionMode)Enum.Parse(typeof(SelectionMode),(string)rb.Content);
@@ -496,7 +499,7 @@ namespace WpfAppone {
 				if(isKanji) {
 					fillColorsKanji(texs,true);
 				} else {
-					fillColors(texs,true);
+					fillColors(texs,0,true);
 				}
 				clea.IsEnabled=true;
 			} else {
