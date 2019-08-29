@@ -121,7 +121,8 @@ namespace Drill_Color {
 		}
 		protected override int ToInt(CMYK o) {
 			HSL p = o as HSL;
-			return Math.Abs(p.H)+p.S+p.L;
+			int pH = Math.Abs(p.H);
+			return (p.H<<16)|(p.S<<8)|p.L;
 		}
 	}
 }

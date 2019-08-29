@@ -40,7 +40,7 @@ namespace Drill_Color {
 			double h, s, v = cmax;
 			h=s=double.NaN;
 			if(delta==0D) {
-				h=0D;
+				h=s=0D;
 			} else {
 				if(cmax==r) {
 					h=60D*Math.IEEERemainder((g-b)/delta,6D);
@@ -56,9 +56,9 @@ namespace Drill_Color {
 				}
 			}
 			try {
-				H=Convert.ToInt32(h);
-				S=Convert.ToInt32(100*s);
-				V=Convert.ToInt32(100*v);
+				H=Convert.ToInt32(Math.Floor(h));
+				S=Convert.ToInt32(Math.Floor(100.0*s));
+				V=Convert.ToInt32(Math.Floor(100.0*v));
 			} catch(Exception) { }
 		}
 		public bool Equals(HSV other) {
@@ -83,7 +83,8 @@ namespace Drill_Color {
 		}
 		protected override int ToInt(CMYK o) {
 			HSV p = o as HSV;
-			return Math.Abs(p.H)+p.S+p.V;
+			int pH = Math.Abs(p.H);
+			return (p.H<<16)|(p.S<<8)|p.V;
 		}
 	}
 }

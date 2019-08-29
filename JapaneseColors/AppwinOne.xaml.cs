@@ -106,30 +106,33 @@ namespace WpfAppone {
 			TextBlock san = new TextBlock();
 			TextBlock yon = new TextBlock();
 			TextBlock goh = new TextBlock();
+			TextBlock txl = new TextBlock();
+			TextBlock txv = new TextBlock();
 			one.Text=key;
 			two.Text=name;
 			san.Text=rgb(B.Color);
 			yon.Text=rgb(B.Color,true);
+			goh.Text=cmyk.ToString(false);
+			txl.Text=hsl.ToString(false);
+			txv.Text=hsv.ToString(false);
 			switch(NamedSolidColorBrush.howCompare) {
-				case NamedSolidColorBrush.HowCompare.RGB:
-					san.FontWeight=yon.FontWeight=FontWeights.Bold;
-					goto default;
-				case NamedSolidColorBrush.HowCompare.CMYK:
-					goh.FontWeight=FontWeights.Bold;
-					goto default;
-				case NamedSolidColorBrush.HowCompare.HSL:
-					goh.Text=hsl.ToString(false);
-					goh.FontWeight=FontWeights.Bold;
-					break;
-				case NamedSolidColorBrush.HowCompare.HSV:
-					goh.Text=hsv.ToString(false);
-					goh.FontWeight=FontWeights.Bold;
+				case NamedSolidColorBrush.HowCompare.Kanji:
+					one.FontWeight=FontWeights.Bold;
 					break;
 				case NamedSolidColorBrush.HowCompare.Yomi:
 					two.FontWeight=FontWeights.Bold;
-					goto default;
-				default:
-					goh.Text=cmyk.ToString(false);
+					break;
+				case NamedSolidColorBrush.HowCompare.RGB:
+					san.FontWeight=yon.FontWeight=FontWeights.Bold;
+					break;
+				case NamedSolidColorBrush.HowCompare.CMYK:
+					goh.FontWeight=FontWeights.Bold;
+					break;
+				case NamedSolidColorBrush.HowCompare.HSL:
+					txl.FontWeight=FontWeights.Bold;
+					break;
+				case NamedSolidColorBrush.HowCompare.HSV:
+					txv.FontWeight=FontWeights.Bold;
 					break;
 			}
 			UniformGrid ug = new UniformGrid {
@@ -140,12 +143,14 @@ namespace WpfAppone {
 			ug.Children.Add(san);
 			ug.Children.Add(yon);
 			ug.Children.Add(goh);
+			ug.Children.Add(txl);
+			ug.Children.Add(txv);
 			one.TextAlignment=TextAlignment.Right;
 			two.TextAlignment=TextAlignment.Left;
-			san.FontWeight=FontWeights.Bold;
+			//san.FontWeight=FontWeights.Bold;
 			ug.Columns=ug.Children.Count;
-			one.Foreground=two.Foreground=san.Foreground=yon.Foreground=goh.Foreground=invert(brush);
-			one.Margin=two.Margin=san.Margin=yon.Margin=goh.Margin=new Thickness(6);
+			one.Foreground=two.Foreground=san.Foreground=yon.Foreground=goh.Foreground=txl.Foreground=txv.Foreground=invert(brush);
+			one.Margin=two.Margin=san.Margin=yon.Margin=goh.Margin=txl.Margin=txv.Margin=new Thickness(6);
 			ug.Tag=one.Text;
 			return ug;
 		}
@@ -299,7 +304,7 @@ namespace WpfAppone {
 		/// </summary>
 		/// <param name="texs"></param>
 		/// <param name="clean"></param>
-		private void fillColorsKanji(List<string> texs,bool clean=false) {
+		private void fillColorsKanji(List<string> texs,bool clean=false,bool useEqual=false) {
 			Cursor keep = this.Cursor;
 			this.Cursor=Cursors.Wait;
 			if(clean) {
@@ -307,7 +312,11 @@ namespace WpfAppone {
 			}
 			int index=0;
 			foreach(string tex in texs) {
-				fillColorsKanji(tex,ref index);
+				if(useEqual) {
+					fillColorsKanji2(tex);
+				} else {
+					fillColorsKanji(tex,ref index);
+				}
 			}
 			if(clean&&texs.Count==0) {
 				fillColors();
@@ -328,7 +337,8 @@ namespace WpfAppone {
 					continue;
 				}
 				checkers.Add(Core.Value);
-				if(Core.Value.Kanji.Contains(tex)) {
+				bool yes = Core.Value.Kanji.Contains(tex);
+				if(yes) {
 					ListBoxItem item = new ListBoxItem {
 						HorizontalContentAlignment=HorizontalAlignment.Stretch,
 						Content=plateOf(Core),
@@ -341,6 +351,28 @@ namespace WpfAppone {
 				}
 			}
 		}
+		private void fillColorsKanji2(string tex) {
+			List<NamedSolidColorBrush> checkers = new List<NamedSolidColorBrush>();
+			foreach(KeyValuePair<string,NamedSolidColorBrush> Core in Jc.Cores) {
+				if(checkers.Contains(Core.Value)) {
+					SystemSounds.Beep.Play();
+					continue;
+				}
+				checkers.Add(Core.Value);
+				bool yes = Core.Value.Kanji.Equals(tex);
+				if(yes) {
+					ListBoxItem item = new ListBoxItem {
+						HorizontalContentAlignment=HorizontalAlignment.Stretch,
+						Content=plateOf(Core),
+						ToolTip=swatchOf(Core)
+					};
+					if(!R.Items.Contains(item)) {
+						R.Items.Add(item);
+						return;
+					}
+				}
+			}
+		}
 		private void Clear_Click(object sender,RoutedEventArgs e) {
 			ClearList();
 			partofYomi.Text=String.Empty;
@@ -350,7 +382,11 @@ namespace WpfAppone {
 			if((string)cb.Content=="Invert") {
 				CMYK.Invert=
 				NamedSolidColorBrush.Invert=cb.IsChecked.Value;
-				fillColors(texs,true);
+				if(isKanji) {
+					fillColorsKanji(texs,true,true);
+				} else {
+					fillColors(texs,true);
+				}
 				return;
 			}
 			clea.IsEnabled=cb.IsChecked??false;
@@ -378,12 +414,11 @@ namespace WpfAppone {
 					name=name.Replace("~","n");
 				}
 				NamedSolidColorBrush.howCompare=(NamedSolidColorBrush.HowCompare)Enum.Parse(typeof(NamedSolidColorBrush.HowCompare),name);
-				texs.Clear();
-				foreach(ListBoxItem item in R.Items) {
-					UniformGrid ug = item.Content as UniformGrid;
-					texs.Add(((TextBlock)ug.Children[1]).Text);
+				if(isKanji) {
+					fillColorsKanji(texs,true,true);
+				} else {
+					fillColors(texs,true);
 				}
-				fillColors(texs,true);
 				return;
 			}
 			L.SelectionMode=(SelectionMode)Enum.Parse(typeof(SelectionMode),(string)rb.Content);
@@ -473,6 +508,7 @@ namespace WpfAppone {
 			SystemSounds.Hand.Play();
 			this.erase.IsEnabled=false;
 		}
+		bool isKanji = false;
 		private void PartOfYomi_Click(object sender,RoutedEventArgs e) {
 			if(!incl.IsChecked.Value) {
 				texs.Clear();
@@ -481,13 +517,13 @@ namespace WpfAppone {
 				ClearList();
 				return;
 			}
-			bool isKanji = false;
 			foreach(ListBoxItem item in R.Items) {
 				if(item==null) { continue; }
 				if(!(item.Content is UniformGrid ug)) { continue; }
 				if(!(ug.Children[1] is TextBlock hira)) { continue; }
 				if(hira.Text.Contains(partofYomi.Text)) {
 					texs.Add(hira.Text);
+					isKanji=false;
 				}
 				if(!(ug.Children[0] is TextBlock kanj)) { continue; }
 				if(kanj.Text.Contains(partofYomi.Text)) {

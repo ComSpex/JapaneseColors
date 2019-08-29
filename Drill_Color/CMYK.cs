@@ -68,13 +68,15 @@ namespace Drill_Color {
 			double C = (1.0-R-K)/(1.0-K);
 			double M = (1.0-G-K)/(1.0-K);
 			double Y = (1.0-B-K)/(1.0-K);
-			try {
-				this.C=Convert.ToInt32(100*C);
-				this.M=Convert.ToInt32(100*M);
-				this.Y=Convert.ToInt32(100*Y);
-				this.K=Convert.ToInt32(100*K);
-				return cmyk=new double[] { C,M,Y,K };
-			} catch { }
+			if(!(Double.IsNaN(C)&&Double.IsNaN(M)&&Double.IsNaN(Y))){
+				try {
+					this.C=Convert.ToInt32(100*C);
+					this.M=Convert.ToInt32(100*M);
+					this.Y=Convert.ToInt32(100*Y);
+					this.K=Convert.ToInt32(100*K);
+					return cmyk=new double[] { C,M,Y,K };
+				} catch { }
+			}
 			return cmyk;
 		}
 		static protected int ToInt(double v) {
@@ -101,7 +103,7 @@ namespace Drill_Color {
 			Int64 bigi = Convert.ToInt64(text.Trim());
 			return Convert.ToInt32(bigi&0x0000000000000000);
 #else
-			return (o.C+o.K)+(o.M+o.K)+(o.Y+o.K);
+			return (o.C<<24)|(o.M<<16)|(o.Y<<8)|o.K;
 #endif
 		}
 		public override string ToString() {

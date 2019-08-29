@@ -21,9 +21,12 @@ namespace WpfAppone {
 				List<NamedSolidColorBrush> list = new List<NamedSolidColorBrush>();
 				Dictionary<NamedSolidColorBrush,string> dics = new Dictionary<NamedSolidColorBrush,string>();
 				foreach(FieldInfo prop in props) {
+					if(prop==null) { continue; }
 					try {
 						NamedSolidColorBrush nscb = prop.GetValue(null) as NamedSolidColorBrush;
+						if(nscb==null) { continue; }
 						nscb.Kanji=prop.Name;
+						if(list.Contains(nscb)) { continue; }
 						list.Add(nscb);
 						dics.Add(nscb,prop.Name);
 					} catch { }

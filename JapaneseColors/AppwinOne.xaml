@@ -25,6 +25,8 @@
 			</StackPanel.Resources>
 			<GroupBox Name="SortGroup" Header="Sort by:">
 				<StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+					<RadioButton>Kanji</RadioButton>
+					<RadioButton>Yomi</RadioButton>
 					<RadioButton IsChecked="True">R</RadioButton>
 					<RadioButton>~R</RadioButton>
 					<RadioButton>G</RadioButton>
@@ -35,8 +37,6 @@
 					<RadioButton>CMYK</RadioButton>
 					<RadioButton>HSL</RadioButton>
 					<RadioButton>HSV</RadioButton>
-					<RadioButton>Kanji</RadioButton>
-					<RadioButton>Yomi</RadioButton>
 					<CheckBox IsChecked="True">Invert</CheckBox>
 				</StackPanel>
 			</GroupBox>
@@ -49,8 +49,8 @@
 					<Setter Property="Margin" Value="2 0 2 0"/>
 				</Style>
 			</StackPanel.Resources>
-			<TextBlock Height="26" VerticalAlignment="Center">W x H:</TextBlock>
-			<TextBox Name="wxh" Width="50" Height="26">10 x 20</TextBox>
+			<TextBlock Height="26" VerticalAlignment="Bottom"> W x H: </TextBlock>
+			<TextBox Name="wxh" Width="50" Height="26" VerticalAlignment="Center" VerticalContentAlignment="Center">10 x 20</TextBox>
 			<Button Name="tile" Click="Tile_Click">Tile</Button>
 			<Button Name="erase" Click="Erase_Click">Erase</Button>
 		</StackPanel>
@@ -81,7 +81,7 @@
 					<RadioButton Name="exte" Content="Extended" Background="Coral" Tag="Snow" IsChecked="true"/>
 				</UniformGrid>
 				<StackPanel Grid.Column="2" Orientation="Horizontal">
-					<TextBox Name="partofYomi" Width="100" Height="26"></TextBox>
+					<TextBox Name="partofYomi" Width="100" Height="26" VerticalContentAlignment="Center"></TextBox>
 					<Button Width="60" Height="24" Click="PartOfYomi_Click" Margin="10 0 0 0">Search</Button>
 				</StackPanel>
 				<Button Name="clea" Content="Clear" Width="60" Height="24" 

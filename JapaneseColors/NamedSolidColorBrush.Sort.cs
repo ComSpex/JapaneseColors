@@ -37,7 +37,7 @@ namespace WpfAppone {
 			if(other==null) {
 				return 1;
 			}
-			int lV, rV;
+			long lV, rV;
 			switch(howCompare) {
 				case HowCompare.R:
 					if(this.R<other.R) {
@@ -48,11 +48,11 @@ namespace WpfAppone {
 					}
 					break;
 				case HowCompare.nR:
-					lV=this.G+this.B;
-					rV=other.G+other.B;
+					lV=(this.G<<8)|this.B;
+					rV=(other.G<<8)|other.B;
 					if(lV<rV) { return -1*reverse; }
 					if(lV>rV) { return 1*reverse; }
-					break;
+					goto case HowCompare.R;
 				case HowCompare.G:
 					if(this.G<other.G) {
 						return -1*reverse;
@@ -62,11 +62,11 @@ namespace WpfAppone {
 					}
 					break;
 				case HowCompare.nG:
-					lV=this.R+this.B;
-					rV=other.R+other.B;
+					lV=(this.R<<16)|this.B;
+					rV=(other.R<<16)|other.B;
 					if(lV<rV) { return -1*reverse; }
 					if(lV>rV) { return 1*reverse; }
-					break;
+					goto case HowCompare.G;
 				case HowCompare.B:
 					if(this.B<other.B) {
 						return -1*reverse;
@@ -76,12 +76,18 @@ namespace WpfAppone {
 					}
 					break;
 				case HowCompare.nB:
-					lV=this.R+this.G;
-					rV=other.R+other.G;
+					lV=(this.R<<16)|(this.G<<8);
+					rV=(other.R<<16)|(other.G<<8);
 					if(lV<rV) { return -1*reverse; }
 					if(lV>rV) { return 1*reverse; }
-					break;
+					goto case HowCompare.B;
 				case HowCompare.RGB:
+#if true
+					lV=(this.R<<16)|(this.G<<8)|this.B;
+					rV=(other.R<<16)|(other.G<<8)|other.B;
+					if(lV<rV) { return -1*reverse; }
+					if(lV>rV) { return 1*reverse; }
+#else
 					Color c = this.Brush.Color;
 					Color d = other.Brush.Color;
 					string Lrgb = c.ToString().ToUpper().Replace("#FF","0x");
@@ -90,6 +96,7 @@ namespace WpfAppone {
 					int rhs = Convert.ToInt32(Rrgb,16);
 					if(lhs<rhs) { return -1*reverse; }
 					if(lhs>rhs) { return 1*reverse; }
+#endif
 					break;
 				case HowCompare.CMYK:
 					CMYK L = new CMYK(this.Brush.Color);
@@ -110,29 +117,13 @@ namespace WpfAppone {
 					return this.Kanji.CompareTo(other.Kanji)*reverse;
 					//break;
 				case HowCompare.Yomi:
-#if true
 					int ii=this.Name.CompareTo(other.Name)*reverse;
 					if(ii==0) {
 						if(!String.IsNullOrEmpty(this.Kanji)&&!String.IsNullOrEmpty(other.Kanji)) {
-							return this.Kanji.CompareTo(other.Kanji)*reverse;
+							goto case HowCompare.Kanji;
 						}
 					}
 					return ii;
-#else
-					char ll = Convert.ToChar(this.Name.Substring(0,1));
-					char rr = Convert.ToChar(other.Name.Substring(0,1));
-					for(int i = 0, j = 0;ll==rr;++i, ++j) {
-						if(i>=this.Name.Length) { break; }
-						if(j>=other.Name.Length) { break; }
-						ll=Convert.ToChar(this.Name.Substring(i,1));
-						rr=Convert.ToChar(other.Name.Substring(j,1));
-					}
-					if(ll<rr) { return -1*reverse; }
-					if(ll>rr) { return 1*reverse; }
-					if(this.Name.Length<other.Name.Length) { return -1*reverse; }
-					if(this.Name.Length>other.Name.Length) { return 1*reverse; }
-					break;
-#endif
 			}
 			return 0;
 		}
