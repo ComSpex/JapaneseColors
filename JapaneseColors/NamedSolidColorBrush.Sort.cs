@@ -100,21 +100,10 @@ namespace WpfAppone {
 					if(lV>rV) { return 1*reverse; }
 					goto case HowCompare.B;
 				case HowCompare.RGB:
-#if true
 					lV=(this.R<<16)|(this.G<<8)|this.B;
 					rV=(other.R<<16)|(other.G<<8)|other.B;
 					if(lV<rV) { return -1*reverse; }
 					if(lV>rV) { return 1*reverse; }
-#else
-					Color c = this.Brush.Color;
-					Color d = other.Brush.Color;
-					string Lrgb = c.ToString().ToUpper().Replace("#FF","0x");
-					string Rrgb = d.ToString().ToUpper().Replace("#FF","0x");
-					int lhs = Convert.ToInt32(Lrgb,16);
-					int rhs = Convert.ToInt32(Rrgb,16);
-					if(lhs<rhs) { return -1*reverse; }
-					if(lhs>rhs) { return 1*reverse; }
-#endif
 					break;
 				case HowCompare.CMYK:
 					CMYK L = new CMYK(this.Brush.Color);

@@ -81,8 +81,8 @@
 					<RadioButton Name="exte" Content="Extended" Background="Coral" Tag="Snow" IsChecked="true"/>
 				</UniformGrid>
 				<StackPanel Grid.Column="2" Orientation="Horizontal">
-					<TextBox Name="partofYomi" Width="100" Height="26" VerticalContentAlignment="Center"></TextBox>
-					<Button Width="60" Height="24" Click="PartOfYomi_Click" Margin="10 0 0 0">Search</Button>
+					<ComboBox Name="partofYomi" Width="100" Height="26" VerticalContentAlignment="Center" IsEditable="True"></ComboBox>
+					<Button Width="60" Height="24" Click="Search_Click" Margin="10 0 0 0">Search</Button>
 				</StackPanel>
 				<Button Name="clea" Content="Clear" Width="60" Height="24" 
 								HorizontalAlignment="Right" VerticalAlignment="Center" 

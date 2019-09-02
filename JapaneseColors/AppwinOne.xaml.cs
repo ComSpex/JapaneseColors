@@ -110,8 +110,17 @@ namespace WpfAppone {
 			TextBlock txv = new TextBlock();
 			one.Text=key;
 			two.Text=name;
-			san.Text=rgb(B.Color);
-			yon.Text=rgb(B.Color,true);
+			//san.Text=rgb(B.Color);
+			san.Inlines.Add(ofR(B.Color));
+			san.Inlines.Add(new Run(","));
+			san.Inlines.Add(ofG(B.Color));
+			san.Inlines.Add(new Run(","));
+			san.Inlines.Add(ofB(B.Color));
+			//yon.Text=rgb(B.Color,true);
+			yon.Inlines.Add(new Run("#"));
+			yon.Inlines.Add(ofR(B.Color,true));
+			yon.Inlines.Add(ofG(B.Color,true));
+			yon.Inlines.Add(ofB(B.Color,true));
 			goh.Text=cmyk.ToString(false);
 			txl.Text=hsl.ToString(false);
 			txv.Text=hsv.ToString(false);
@@ -121,6 +130,107 @@ namespace WpfAppone {
 					break;
 				case NamedSolidColorBrush.HowCompare.Yomi:
 					two.FontWeight=FontWeights.Bold;
+					break;
+				case NamedSolidColorBrush.HowCompare.R:
+					int i = 0;
+					foreach(Inline iline in san.Inlines) {
+						if(i==0) {
+							iline.FontWeight=FontWeights.Bold;
+							break;
+						}
+						++i;
+					}
+					int yi = 0;
+					foreach(Inline iline in yon.Inlines) {
+						if(yi==1) {
+							iline.FontWeight=FontWeights.Bold;
+						}
+						++yi;
+					}
+					break;
+				case NamedSolidColorBrush.HowCompare.nR:
+					int iR = 0;
+					foreach(Inline iline in san.Inlines) {
+						if(iR==2||iR==4) {
+							iline.FontWeight=FontWeights.Bold;
+						}
+						++iR;
+					}
+					int yiR = 0;
+					foreach(Inline iline in yon.Inlines) {
+						if(yiR==2||yiR==3) {
+							iline.FontWeight=FontWeights.Bold;
+						}
+						++yiR;
+					}
+					break;
+				case NamedSolidColorBrush.HowCompare.G:
+					int ii = 0;
+					foreach(Inline iline in san.Inlines) {
+						if(ii==2) {
+							iline.FontWeight=FontWeights.Bold;
+							break;
+						}
+						++ii;
+					}
+					int iG = 0;
+					foreach(Inline iline in yon.Inlines) {
+						if(iG==2) {
+							iline.FontWeight=FontWeights.Bold;
+							break;
+						}
+						++iG;
+					}
+					break;
+				case NamedSolidColorBrush.HowCompare.nG:
+					int siG = 0;
+					foreach(Inline iline in san.Inlines) {
+						if(siG==0||siG==4) {
+							iline.FontWeight=FontWeights.Bold;
+						}
+						++siG;
+					}
+					int yiG = 0;
+					foreach(Inline iline in yon.Inlines) {
+						if(yiG==1||yiG==3) {
+							iline.FontWeight=FontWeights.Bold;
+						}
+						++yiG;
+					}
+					break;
+				case NamedSolidColorBrush.HowCompare.B:
+					int iii = 0;
+					foreach(Inline iline in san.Inlines) {
+						if(iii==4) {
+							iline.FontWeight=FontWeights.Bold;
+							break;
+						}
+						++iii;
+					}
+					int iB = 0;
+					foreach(Inline iline in yon.Inlines) {
+						if(iB==3) {
+							iline.FontWeight=FontWeights.Bold;
+							break;
+						}
+						++iB;
+					}
+					break;
+				case NamedSolidColorBrush.HowCompare.nB:
+					int siB = 0;
+					foreach(Inline iline in san.Inlines) {
+						if(siB==0||siB==2) {
+							iline.FontWeight=FontWeights.Bold;
+						}
+						++siB;
+					}
+					int yiB = 0;
+					foreach(Inline iline in yon.Inlines) {
+						if(yiB==1||yiB==2) {
+							iline.FontWeight=FontWeights.Bold;
+						}
+						++yiB;
+					}
 					break;
 				case NamedSolidColorBrush.HowCompare.RGB:
 					san.FontWeight=yon.FontWeight=FontWeights.Bold;
@@ -154,6 +264,24 @@ namespace WpfAppone {
 			one.Margin=two.Margin=san.Margin=yon.Margin=goh.Margin=txl.Margin=txv.Margin=new Thickness(6);
 			ug.Tag=one.Text;
 			return ug;
+		}
+		private string ofB(Color color,bool hex=false) {
+			if(hex) {
+				return String.Format("{0:X2}",color.B);
+			}
+			return color.B.ToString();
+		}
+		private string ofG(Color color,bool hex=false) {
+			if(hex) {
+				return String.Format("{0:X2}",color.G);
+			}
+			return color.G.ToString();
+		}
+		private string ofR(Color color,bool hex=false) {
+			if(hex) {
+				return String.Format("{0:X2}",color.R);
+			}
+			return color.R.ToString();
 		}
 		void fillIndice() {
 #if false
@@ -536,7 +664,7 @@ namespace WpfAppone {
 			this.erase.IsEnabled=false;
 		}
 		bool isKanji = false;
-		private void PartOfYomi_Click(object sender,RoutedEventArgs e) {
+		private void Search_Click(object sender,RoutedEventArgs e) {
 			if(!incl.IsChecked.Value) {
 				texs.Clear();
 			}
@@ -567,6 +695,9 @@ namespace WpfAppone {
 				clea.IsEnabled=true;
 			} else {
 				MessageBox.Show(String.Format("cannot find any of '{0}'",partofYomi.Text),this.Title,MessageBoxButton.OK,MessageBoxImage.Information);
+			}
+			if(!partofYomi.Items.Contains(partofYomi.Text)) {
+				partofYomi.Items.Add(partofYomi.Text);
 			}
 			e.Handled=true;
 		}
