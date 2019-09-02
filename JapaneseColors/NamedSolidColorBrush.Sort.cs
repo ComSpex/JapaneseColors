@@ -1,9 +1,27 @@
 ﻿using Drill_Color;
 using System;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
 namespace WpfAppone {
 	public partial class NamedSolidColorBrush:IEquatable<NamedSolidColorBrush>, IComparable<NamedSolidColorBrush> {
+		public NamedSolidColorBrush(ListBoxItem lbi) {
+			UniformGrid ug = lbi.Content as UniformGrid;
+			TextBlock one = ug.Children[0] as TextBlock;
+			TextBlock two = ug.Children[1] as TextBlock;
+			TextBlock san = ug.Children[2] as TextBlock;
+			Kanji=one.Text;
+			Names=two.Text.Split(',');
+			Brush=new SolidColorBrush(ToColor(san.Text));
+		}
+		private Color ToColor(string text) {
+			string[] rgb = text.Split(',');
+			byte R = Convert.ToByte(rgb[0].Trim());
+			byte G = Convert.ToByte(rgb[1].Trim());
+			byte B = Convert.ToByte(rgb[2].Trim());
+			return Color.FromRgb(R,G,B);
+		}
 		public bool Equals(NamedSolidColorBrush other) {
 			if(this.Kanji!=null&&other.Kanji!=null) {
 				return

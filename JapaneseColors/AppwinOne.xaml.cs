@@ -149,6 +149,7 @@ namespace WpfAppone {
 			two.TextAlignment=TextAlignment.Left;
 			//san.FontWeight=FontWeights.Bold;
 			ug.Columns=ug.Children.Count;
+			//ug.HorizontalAlignment=HorizontalAlignment.Stretch;
 			one.Foreground=two.Foreground=san.Foreground=yon.Foreground=goh.Foreground=txl.Foreground=txv.Foreground=invert(brush);
 			one.Margin=two.Margin=san.Margin=yon.Margin=goh.Margin=txl.Margin=txv.Margin=new Thickness(6);
 			ug.Tag=one.Text;
@@ -415,7 +416,8 @@ namespace WpfAppone {
 				}
 				NamedSolidColorBrush.howCompare=(NamedSolidColorBrush.HowCompare)Enum.Parse(typeof(NamedSolidColorBrush.HowCompare),name);
 				if(isKanji) {
-					fillColorsKanji(texs,true,true);
+					Sort();
+					//fillColorsKanji(texs,true,true);
 				} else {
 					fillColors(texs,true);
 				}
@@ -424,6 +426,31 @@ namespace WpfAppone {
 			L.SelectionMode=(SelectionMode)Enum.Parse(typeof(SelectionMode),(string)rb.Content);
 			SetLListBrush(rb);
 			ClearListL();
+		}
+		private void Sort() {
+			List<NamedSolidColorBrush> nscbs = new List<NamedSolidColorBrush>();
+			foreach(ListBoxItem item in R.Items) {
+				NamedSolidColorBrush nscb = new NamedSolidColorBrush(item);
+				nscbs.Add(nscb);
+			}
+			nscbs.Sort();
+			R.Items.Clear();
+			foreach(NamedSolidColorBrush nscb in nscbs) {
+				R.Items.Add(SetListBoxItem(nscb));
+			}
+		}
+		private object SetListBoxItem(NamedSolidColorBrush nscb) {
+			ListBoxItem item = new ListBoxItem();
+			item.HorizontalContentAlignment=HorizontalAlignment.Stretch;
+			item.Content=plateOf(nscb);
+			item.ToolTip=swatchOf(nscb);
+			return item;
+		}
+		private UIElement swatchOf(NamedSolidColorBrush nscb) {
+			return swatchOf(nscb.Kanji,nscb);
+		}
+		private UIElement plateOf(NamedSolidColorBrush nscb) {
+			return plateOf(nscb.Kanji,nscb.Yomi,nscb.Brush);
 		}
 		private bool AnyOfGroupMembers(RadioButton rb) {
 			List<string> members = new List<string>();
