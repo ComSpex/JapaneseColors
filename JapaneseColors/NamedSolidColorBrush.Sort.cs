@@ -2,6 +2,7 @@
 using System;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Documents;
 using System.Windows.Media;
 
 namespace WpfAppone {
@@ -13,7 +14,19 @@ namespace WpfAppone {
 			TextBlock san = ug.Children[2] as TextBlock;
 			Kanji=one.Text;
 			Names=two.Text.Split(',');
-			Brush=new SolidColorBrush(ToColor(san.Text));
+			Brush=new SolidColorBrush(ToColor(san.Inlines));
+		}
+		private Color ToColor(InlineCollection inlines) {
+			int i = 0;
+			byte R, G, B;
+			R=G=B=0xff;
+			foreach(Run iline in inlines) {
+				if(i==0) { R=Convert.ToByte(iline.Text); }
+				if(i==2) { G=Convert.ToByte(iline.Text); }
+				if(i==4) { B=Convert.ToByte(iline.Text); }
+				++i;
+			}
+			return Color.FromRgb(R,G,B);
 		}
 		private Color ToColor(string text) {
 			string[] rgb = text.Split(',');
