@@ -358,22 +358,24 @@ namespace WpfAppone {
 
 			return sp;
 		}
-		protected List<string> texs = new List<string>();
+		protected List<NamedSolidColorBrush> texs = new List<NamedSolidColorBrush>();
 		private void L_SelectionChanged(object sender,SelectionChangedEventArgs e) {
 			if(L.SelectedIndex<0){
 				return;
 			}
 			texs.Clear();
-			foreach(var item in e.AddedItems){
-				TextBlock tb =((ListBoxItem)item).Content as TextBlock;
+			foreach(ListBoxItem item in e.AddedItems){
+				TextBlock tb =item.Content as TextBlock;
 				if(tb!=null){
 					if(tb.Text.Contains("全て")) {
 						fillColors();
 						return;
 					}
-					texs.Add(tb.Text);
+					NamedSolidColorBrush nscb = new NamedSolidColorBrush(item);
+					texs.Add(nscb);
 				}
 			}
+#if false
 			if(texs.Count>1){
 				fillColors(texs);
 			}else if(texs.Count==1){
@@ -381,17 +383,17 @@ namespace WpfAppone {
 				int index = -1;
 				fillColors(texs[0],ref index,clean);
 			}
+#endif
 			e.Handled=true;
 		}
-		private void fillColors(List<string> texs,bool clean=false) {
+		private void fillColors(List<NamedSolidColorBrush> texs,bool clean=false) {
 			Cursor keep = this.Cursor;
 			this.Cursor=Cursors.Wait;
 			if(clean) {
 				R.Items.Clear();
 			}
-			int index = 0;
-			foreach(string tex in texs){
-				fillColors(tex,ref index,false);
+			foreach(NamedSolidColorBrush tex in texs){
+				R.Items.Add(SetListBoxItem(tex));
 			}
 			if(clean&&texs.Count==0) {
 				fillColors();
@@ -399,7 +401,8 @@ namespace WpfAppone {
 			updateTitle();
 			this.Cursor=keep;
 		}
-		private void fillColors(string head,ref int index,bool clean = false) {
+#if false
+		private void fillColors(NamedSolidColorBrush head,ref int index,bool clean = false) {
 			if(clean) {
 				R.Items.Clear();
 			}
@@ -430,6 +433,7 @@ namespace WpfAppone {
 			}
 			updateTitle();
 		}
+#endif
 		/// <summary>
 		/// Kanji supportive version of fillColors()
 		/// </summary>
@@ -555,12 +559,7 @@ namespace WpfAppone {
 					name=name.Replace("~","n");
 				}
 				NamedSolidColorBrush.howCompare=(NamedSolidColorBrush.HowCompare)Enum.Parse(typeof(NamedSolidColorBrush.HowCompare),name);
-				if(isKanji) {
-					Sort();
-					//fillColorsKanji(texs,true,true);
-				} else {
-					fillColors(texs,true);
-				}
+				Sort();
 				return;
 			}
 			L.SelectionMode=(SelectionMode)Enum.Parse(typeof(SelectionMode),(string)rb.Content);
@@ -705,7 +704,6 @@ namespace WpfAppone {
 			SystemSounds.Hand.Play();
 			this.erase.IsEnabled=false;
 		}
-		bool isKanji = false;
 		private void Search_Click(object sender,RoutedEventArgs e) {
 			if(!incl.IsChecked.Value) {
 				texs.Clear();
@@ -719,28 +717,22 @@ namespace WpfAppone {
 				if(!(item.Content is UniformGrid ug)) { continue; }
 				if(!(ug.Children[1] is TextBlock hira)) { continue; }
 				if(hira.Text.Contains(partofYomi.Text)) {
-					texs.Add(hira.Text);
-					isKanji=false;
+					NamedSolidColorBrush nscb = new NamedSolidColorBrush(item);
+					texs.Add(nscb);
 				}
 				if(!(ug.Children[0] is TextBlock kanj)) { continue; }
 				if(kanj.Text.Contains(partofYomi.Text)) {
-					texs.Add(kanj.Text);
-					isKanji=true;
+					NamedSolidColorBrush nscb = new NamedSolidColorBrush(item);
+					texs.Add(nscb);
 				}
 			}
-			if(texs.Count>0) {
-				if(isKanji) {
-					fillColorsKanji(texs,true);
-				} else {
-					fillColors(texs,true);
-				}
-				clea.IsEnabled=true;
-				if(!partofYomi.Items.Contains(partofYomi.Text)) {
-					partofYomi.Items.Add(partofYomi.Text);
-				}
-			} else {
-				MessageBox.Show(String.Format("cannot find any of '{0}'",partofYomi.Text),this.Title,MessageBoxButton.OK,MessageBoxImage.Information);
+			//texs.Sort();
+			R.Items.Clear();
+			foreach(NamedSolidColorBrush tex in texs) {
+				R.Items.Add(SetListBoxItem(tex));
 			}
+			updateTitle();
+			clea.IsEnabled=R.Items.Count>0;
 			e.Handled=true;
 		}
 		private void ClearList() {
