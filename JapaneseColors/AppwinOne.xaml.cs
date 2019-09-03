@@ -26,10 +26,12 @@ namespace WpfAppone {
 	/// </summary>
 	public partial class AppwinOne:Window {
 		JapaneseColors jc = new JapaneseColors();
+		FileInfo file = new FileInfo("ComboBoxItems.txt");
 		public AppwinOne() {
 			Application.Current.SessionEnding+=Current_SessionEnding;
 			Application.Current.Exit+=Current_Exit;
 			InitializeComponent();
+			LoadComboItems(file);
 			//this.Topmost=true;
 			this.Height=1250;
 			this.Width=820;
@@ -509,18 +511,28 @@ namespace WpfAppone {
 		private void CheckBox_Checked(object sender,RoutedEventArgs e) {
 			CheckBox cb=sender as CheckBox;
 			if((string)cb.Content=="Invert") {
-				CMYK.Invert=
-				NamedSolidColorBrush.Invert=cb.IsChecked.Value;
-				if(isKanji) {
-					fillColorsKanji(texs,true,true);
-				} else {
-					fillColors(texs,true);
-				}
+				InvertClicked(cb);
 				return;
+			} else {
+				fillColors(texs,true);
 			}
 			clea.IsEnabled=cb.IsChecked??false;
 			if(clea.IsEnabled){
 				ClearListR();
+			}
+		}
+		private void InvertClicked(CheckBox cb) {
+			CMYK.Invert=
+			NamedSolidColorBrush.Invert=cb.IsChecked.Value;
+			List<NamedSolidColorBrush> nscbs = new List<NamedSolidColorBrush>();
+			foreach(ListBoxItem item in R.Items) {
+				NamedSolidColorBrush nscb = new NamedSolidColorBrush(item);
+				nscbs.Add(nscb);
+			}
+			nscbs.Sort();
+			R.Items.Clear();
+			foreach(NamedSolidColorBrush nscb in nscbs) {
+				R.Items.Add(SetListBoxItem(nscb));
 			}
 		}
 		private void ClearListR() {
@@ -626,6 +638,36 @@ namespace WpfAppone {
 			}
 			base.OnClosing(e);
 		}
+		protected override void OnClosed(EventArgs e) {
+			SaveComboItems(file);
+			base.OnClosed(e);
+		}
+		private void LoadComboItems(FileInfo file) {
+			if(file.Exists) {
+				using(FileStream fs = file.OpenRead()) {
+					using(StreamReader sr=new StreamReader(fs)) {
+						while(!sr.EndOfStream) {
+							string buff = sr.ReadLine();
+							if(buff.StartsWith("//")) { continue; }
+							partofYomi.Items.Add(buff);
+						}
+					}
+				}
+			}
+		}
+		private void SaveComboItems(FileInfo file) {
+			if(partofYomi.Items.Count>0) {
+				using(FileStream fs = file.OpenWrite()) {
+					using(StreamWriter sw = new StreamWriter(fs)) {
+						sw.AutoFlush=true;
+						sw.WriteLine("// ComboBox.Items of JapaneseColors as of {0:ddMMMyyyy HH:mm:ss.fff}",DateTime.Now);
+						foreach(string item in partofYomi.Items) {
+							sw.WriteLine(item);
+						}
+					}
+				}
+			}
+		}
 		bool isTerminated = false;
 		public bool Terminate() {
 			bool cancelled = true;
@@ -693,11 +735,11 @@ namespace WpfAppone {
 					fillColors(texs,true);
 				}
 				clea.IsEnabled=true;
+				if(!partofYomi.Items.Contains(partofYomi.Text)) {
+					partofYomi.Items.Add(partofYomi.Text);
+				}
 			} else {
 				MessageBox.Show(String.Format("cannot find any of '{0}'",partofYomi.Text),this.Title,MessageBoxButton.OK,MessageBoxImage.Information);
-			}
-			if(!partofYomi.Items.Contains(partofYomi.Text)) {
-				partofYomi.Items.Add(partofYomi.Text);
 			}
 			e.Handled=true;
 		}

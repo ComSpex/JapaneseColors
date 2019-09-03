@@ -23,6 +23,9 @@ namespace WpfAppone {
 				wide=Convert.ToInt32(Ma.Groups["w"].Value.Trim());
 				high=Convert.ToInt32(Ma.Groups["h"].Value.Trim());
 				_limit=wide*high;
+				if(R.Items.Count>0) {
+					_limit=Math.Min(_limit,R.Items.Count);
+				}
 			} else {
 				throw new InvalidOperationException("cannot read out 'W x H'!!");
 			}
@@ -70,10 +73,18 @@ namespace WpfAppone {
 		List<string> listKeys = new List<string>();
 		private void GenerateWindows(int limit) {
 			if(listValues.Count==0) {
+#if true
+				foreach(System.Windows.Controls.ListBoxItem item in R.Items) {
+					NamedSolidColorBrush nscb = new NamedSolidColorBrush(item);
+					listKeys.Add(nscb.Kanji);
+					listValues.Add(nscb);
+				}
+#else
 				foreach(KeyValuePair<string,NamedSolidColorBrush> Core in Jc.Cores) {
 					listKeys.Add(Core.Key);
 					listValues.Add(Core.Value);
 				}
+#endif
 			}
 			for(int i = 0;i<limit;++i) {
 				if(ColorIndex>=listValues.Count) {
