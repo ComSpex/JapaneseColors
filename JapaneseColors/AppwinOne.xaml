@@ -68,17 +68,15 @@
 					<ColumnDefinition Width="250"/>
 					<ColumnDefinition Width="70"/>
 				</Grid.ColumnDefinitions>
-				<CheckBox Name="incl" Content="Inclusive" VerticalAlignment="Center" 
-									Margin="10 0 0 0" Checked="CheckBox_Checked" Grid.Column="0" />
 				<UniformGrid Grid.Column="1" Columns="3" VerticalAlignment="Center">
 					<UniformGrid.Resources>
 						<Style TargetType="RadioButton">
 							<EventSetter Event="Checked" Handler="RadioButton_Checked" />
 						</Style>
 					</UniformGrid.Resources>
-					<RadioButton GroupName="howList" Content="Single" Background="ForestGreen"/>
-					<RadioButton GroupName="howList" Content="Multiple" Background="SlateBlue"/>
-					<RadioButton GroupName="howList" Content="Extended" Background="Coral" Tag="Snow" IsChecked="true" Name="exte" />
+					<RadioButton GroupName="selectMode" Content="Single" Background="ForestGreen" ToolTip="The user can select only one item at a time."/>
+					<RadioButton GroupName="selectMode" Content="Multiple" Background="SlateBlue" ToolTip="The user can select multiple items without holding donw a modifier key."/>
+					<RadioButton GroupName="selectMode" Content="Extended" Background="Coral" Tag="Snow" IsChecked="true" Name="exte" ToolTip="The user can select multiple consecutive items while holding down the SHIFT key." />
 				</UniformGrid>
 				<StackPanel Grid.Column="2" Orientation="Horizontal">
 					<ComboBox Name="partofYomi" Width="100" Height="26" VerticalContentAlignment="Center" IsEditable="True"></ComboBox>

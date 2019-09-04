@@ -78,6 +78,9 @@ namespace WpfAppone {
 			}
 			updateTitle();
 			clea.IsEnabled=false;
+			if(!inclusive) {
+				nscbs.Clear();
+			}
 			this.Cursor=keep;
 		}
 		/// <summary>
@@ -283,14 +286,6 @@ namespace WpfAppone {
 			return color.R.ToString();
 		}
 		void fillIndice() {
-#if false
-			byte[] codes=new byte[166];
-			for(int ii=0,j=0x41;ii<codes.Length;++j,ii+=2){
-				codes[ii+0]=(byte)j;
-				codes[ii+1]=0x30;
-			}
-			string cs =System.Text.Encoding.Unicode.GetString(codes);
-#else
 			List<string> keys = new List<string>();
 			string cs = String.Empty;
 			foreach(KeyValuePair<string,NamedSolidColorBrush> Core in Jc.Cores) {
@@ -305,8 +300,7 @@ namespace WpfAppone {
 			foreach(string key in keys) {
 				cs+=key;
 			}
-#endif
-			System.Diagnostics.Debug.WriteLine(cs);
+			//System.Diagnostics.Debug.WriteLine(cs);
 			L.Items.Clear();
 			L.Items.Add(ListItem("(全て)"));
 			foreach(char c in cs){
@@ -316,10 +310,11 @@ namespace WpfAppone {
 		}
 		private object ListItem(string p) {
 			ListBoxItem item=new ListBoxItem();
-			TextBlock tb=new TextBlock();
-			tb.Text=p;
-			tb.FontSize=14;
-			tb.FontFamily=new System.Windows.Media.FontFamily("Meiryo UI");
+			TextBlock tb = new TextBlock {
+				Text=p,
+				FontSize=14,
+				FontFamily=new System.Windows.Media.FontFamily("Meiryo UI")
+			};
 			if(p.Contains("全て")){
 				tb.Foreground=Brushes.Silver;
 			}
@@ -356,11 +351,25 @@ namespace WpfAppone {
 			return sp;
 		}
 		protected List<NamedSolidColorBrush> nscbs = new List<NamedSolidColorBrush>();
+		protected bool inclusive {
+			get {
+				bool yes = false;
+				yes=L.SelectionMode==SelectionMode.Multiple;
+				if(L.SelectionMode==SelectionMode.Extended) {
+					yes=Keyboard.IsKeyDown(Key.LeftShift)||Keyboard.IsKeyDown(Key.RightShift);
+				}
+				return yes;
+			}
+		}
 		private void L_SelectionChanged(object sender,SelectionChangedEventArgs e) {
-			if(L.SelectedIndex<0){
+			ListBox lb = sender as ListBox;
+			if(lb.SelectedIndex<0){
 				return;
 			}
-			nscbs.Clear();
+			fillColors();
+			if(!inclusive) {
+				nscbs.Clear();
+			}
 			foreach(ListBoxItem item in e.AddedItems){
 				TextBlock tb =item.Content as TextBlock;
 				if(tb!=null){
@@ -368,19 +377,21 @@ namespace WpfAppone {
 						fillColors();
 						return;
 					}
-					NamedSolidColorBrush nscb = new NamedSolidColorBrush(item);
-					nscbs.Add(nscb);
+					foreach(ListBoxItem ritem in R.Items) {
+						if(ritem==null) { continue; }
+						UniformGrid ug = ritem.Content as UniformGrid;
+						TextBlock yomi = ug.Children[1] as TextBlock;
+						if(yomi.Text.StartsWith(tb.Text)) {
+							nscbs.Add(new NamedSolidColorBrush(ritem));
+						}
+					}
 				}
 			}
-#if false
-			if(texs.Count>1){
-				fillColors(texs);
-			}else if(texs.Count==1){
-				bool clean=!(incl.IsChecked??false);
-				int index = -1;
-				fillColors(texs[0],ref index,clean);
+			R.Items.Clear();
+			foreach(NamedSolidColorBrush nscb in nscbs) {
+				R.Items.Add(SetListBoxItem(nscb));
 			}
-#endif
+			updateTitle();
 			e.Handled=true;
 		}
 		private void fillColors(List<NamedSolidColorBrush> texs,bool clean=false) {
@@ -441,6 +452,7 @@ namespace WpfAppone {
 				L.SelectedIndex=-1;
 			}
 		}
+		SelectionMode lastMode = SelectionMode.Extended;
 		private void RadioButton_Checked(object sender,RoutedEventArgs e) {
 			RadioButton rb=sender as RadioButton;
 			if(AnyOfGroupMembers(rb)) {
@@ -453,6 +465,10 @@ namespace WpfAppone {
 				return;
 			}
 			L.SelectionMode=(SelectionMode)Enum.Parse(typeof(SelectionMode),(string)rb.Content);
+			if(lastMode!=L.SelectionMode) {
+				fillColors();
+				lastMode=L.SelectionMode;
+			}
 			SetLListBrush(rb);
 			ClearListL();
 		}
@@ -558,6 +574,12 @@ namespace WpfAppone {
 			}
 		}
 		bool isTerminated = false;
+
+		public bool IsShiftKeyDown {
+			get {
+				return Keyboard.IsKeyDown(Key.LeftShift)||Keyboard.IsKeyDown(Key.RightShift);
+			}
+		}
 		public bool Terminate() {
 			bool cancelled = true;
 			if(!isTerminated) {
@@ -595,9 +617,6 @@ namespace WpfAppone {
 			this.erase.IsEnabled=false;
 		}
 		private void Search_Click(object sender,RoutedEventArgs e) {
-			if(!incl.IsChecked.Value) {
-				nscbs.Clear();
-			}
 			if(String.IsNullOrEmpty(partofYomi.Text)) {
 				ClearList();
 				return;
@@ -629,6 +648,7 @@ namespace WpfAppone {
 			ClearListR();
 			ClearListL();
 			fillColors();
+			nscbs.Clear();
 		}
 	}
 }
