@@ -68,11 +68,8 @@ namespace WpfAppone {
 		private void fillColors() {
 			Cursor keep = this.Cursor;
 			this.Cursor=Cursors.Wait;
-			List<NamedSolidColorBrush> checkers = new List<NamedSolidColorBrush>();
 			R.Items.Clear();
 			foreach(KeyValuePair<string,NamedSolidColorBrush> Core in Jc.Cores){
-				if(checkers.Contains(Core.Value)) { continue; }
-				checkers.Add(Core.Value);
 				ListBoxItem item=new ListBoxItem();
 				item.HorizontalContentAlignment=HorizontalAlignment.Stretch;
 				item.Content=plateOf(Core);
@@ -358,12 +355,12 @@ namespace WpfAppone {
 
 			return sp;
 		}
-		protected List<NamedSolidColorBrush> texs = new List<NamedSolidColorBrush>();
+		protected List<NamedSolidColorBrush> nscbs = new List<NamedSolidColorBrush>();
 		private void L_SelectionChanged(object sender,SelectionChangedEventArgs e) {
 			if(L.SelectedIndex<0){
 				return;
 			}
-			texs.Clear();
+			nscbs.Clear();
 			foreach(ListBoxItem item in e.AddedItems){
 				TextBlock tb =item.Content as TextBlock;
 				if(tb!=null){
@@ -372,7 +369,7 @@ namespace WpfAppone {
 						return;
 					}
 					NamedSolidColorBrush nscb = new NamedSolidColorBrush(item);
-					texs.Add(nscb);
+					nscbs.Add(nscb);
 				}
 			}
 #if false
@@ -401,113 +398,6 @@ namespace WpfAppone {
 			updateTitle();
 			this.Cursor=keep;
 		}
-#if false
-		private void fillColors(NamedSolidColorBrush head,ref int index,bool clean = false) {
-			if(clean) {
-				R.Items.Clear();
-			}
-			int ii = 0;
-			List<NamedSolidColorBrush> checkers = new List<NamedSolidColorBrush>();
-			foreach(KeyValuePair<string,NamedSolidColorBrush> Core in Jc.Cores) {
-				if(checkers.Contains(Core.Value)) { continue; }
-				checkers.Add(Core.Value);
-				if(index>=0) {
-					if(++ii<=index) {
-						continue;
-					}
-					++index;
-				}
-				if(Core.Value.NameStartsWith(head)) {
-					ListBoxItem item = new ListBoxItem {
-						HorizontalContentAlignment=HorizontalAlignment.Stretch,
-						Content=plateOf(Core),
-						ToolTip=swatchOf(Core)
-					};
-					if(!R.Items.Contains(item)) {
-						R.Items.Add(item);
-						if(index>=0) {
-							return;
-						}
-					}
-				}
-			}
-			updateTitle();
-		}
-#endif
-		/// <summary>
-		/// Kanji supportive version of fillColors()
-		/// </summary>
-		/// <param name="texs"></param>
-		/// <param name="clean"></param>
-		private void fillColorsKanji(List<string> texs,bool clean=false,bool useEqual=false) {
-			Cursor keep = this.Cursor;
-			this.Cursor=Cursors.Wait;
-			if(clean) {
-				R.Items.Clear();
-			}
-			int index=0;
-			foreach(string tex in texs) {
-				if(useEqual) {
-					fillColorsKanji2(tex);
-				} else {
-					fillColorsKanji(tex,ref index);
-				}
-			}
-			if(clean&&texs.Count==0) {
-				fillColors();
-			}
-			updateTitle();
-			this.Cursor=keep;
-		}
-		private void fillColorsKanji(string tex,ref int index) {
-			int ii = 0;
-			List<NamedSolidColorBrush> checkers = new List<NamedSolidColorBrush>();
-			foreach(KeyValuePair<string,NamedSolidColorBrush> Core in Jc.Cores) {
-				if(++ii<=index) {
-					continue;
-				}
-				++index;
-				if(checkers.Contains(Core.Value)) {
-					SystemSounds.Beep.Play();
-					continue;
-				}
-				checkers.Add(Core.Value);
-				bool yes = Core.Value.Kanji.Contains(tex);
-				if(yes) {
-					ListBoxItem item = new ListBoxItem {
-						HorizontalContentAlignment=HorizontalAlignment.Stretch,
-						Content=plateOf(Core),
-						ToolTip=swatchOf(Core)
-					};
-					if(!R.Items.Contains(item)) {
-						R.Items.Add(item);
-					}
-					return;
-				}
-			}
-		}
-		private void fillColorsKanji2(string tex) {
-			List<NamedSolidColorBrush> checkers = new List<NamedSolidColorBrush>();
-			foreach(KeyValuePair<string,NamedSolidColorBrush> Core in Jc.Cores) {
-				if(checkers.Contains(Core.Value)) {
-					SystemSounds.Beep.Play();
-					continue;
-				}
-				checkers.Add(Core.Value);
-				bool yes = Core.Value.Kanji.Equals(tex);
-				if(yes) {
-					ListBoxItem item = new ListBoxItem {
-						HorizontalContentAlignment=HorizontalAlignment.Stretch,
-						Content=plateOf(Core),
-						ToolTip=swatchOf(Core)
-					};
-					if(!R.Items.Contains(item)) {
-						R.Items.Add(item);
-						return;
-					}
-				}
-			}
-		}
 		private void Clear_Click(object sender,RoutedEventArgs e) {
 			ClearList();
 			partofYomi.Text=String.Empty;
@@ -518,7 +408,7 @@ namespace WpfAppone {
 				InvertClicked(cb);
 				return;
 			} else {
-				fillColors(texs,true);
+				fillColors(nscbs,true);
 			}
 			clea.IsEnabled=cb.IsChecked??false;
 			if(clea.IsEnabled){
@@ -706,7 +596,7 @@ namespace WpfAppone {
 		}
 		private void Search_Click(object sender,RoutedEventArgs e) {
 			if(!incl.IsChecked.Value) {
-				texs.Clear();
+				nscbs.Clear();
 			}
 			if(String.IsNullOrEmpty(partofYomi.Text)) {
 				ClearList();
@@ -718,17 +608,17 @@ namespace WpfAppone {
 				if(!(ug.Children[1] is TextBlock hira)) { continue; }
 				if(hira.Text.Contains(partofYomi.Text)) {
 					NamedSolidColorBrush nscb = new NamedSolidColorBrush(item);
-					texs.Add(nscb);
+					nscbs.Add(nscb);
 				}
 				if(!(ug.Children[0] is TextBlock kanj)) { continue; }
 				if(kanj.Text.Contains(partofYomi.Text)) {
 					NamedSolidColorBrush nscb = new NamedSolidColorBrush(item);
-					texs.Add(nscb);
+					nscbs.Add(nscb);
 				}
 			}
 			//texs.Sort();
 			R.Items.Clear();
-			foreach(NamedSolidColorBrush tex in texs) {
+			foreach(NamedSolidColorBrush tex in nscbs) {
 				R.Items.Add(SetListBoxItem(tex));
 			}
 			updateTitle();

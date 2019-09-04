@@ -25,18 +25,18 @@
 			</StackPanel.Resources>
 			<GroupBox Name="SortGroup" Header="Sort by:">
 				<StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center">
-					<RadioButton>Kanji</RadioButton>
-					<RadioButton>Yomi</RadioButton>
-					<RadioButton IsChecked="True">R</RadioButton>
-					<RadioButton>~R</RadioButton>
-					<RadioButton>G</RadioButton>
-					<RadioButton>~G</RadioButton>
-					<RadioButton>B</RadioButton>
-					<RadioButton>~B</RadioButton>
-					<RadioButton>RGB</RadioButton>
-					<RadioButton>CMYK</RadioButton>
-					<RadioButton>HSL</RadioButton>
-					<RadioButton>HSV</RadioButton>
+					<RadioButton GroupName="sortBy">Kanji</RadioButton>
+					<RadioButton GroupName="sortBy">Yomi</RadioButton>
+					<RadioButton GroupName="sortBy" IsChecked="True">R</RadioButton>
+					<RadioButton GroupName="sortBy">~R</RadioButton>
+					<RadioButton GroupName="sortBy">G</RadioButton>
+					<RadioButton GroupName="sortBy">~G</RadioButton>
+					<RadioButton GroupName="sortBy">B</RadioButton>
+					<RadioButton GroupName="sortBy">~B</RadioButton>
+					<RadioButton GroupName="sortBy">RGB</RadioButton>
+					<RadioButton GroupName="sortBy">CMYK</RadioButton>
+					<RadioButton GroupName="sortBy">HSL</RadioButton>
+					<RadioButton GroupName="sortBy">HSV</RadioButton>
 					<CheckBox IsChecked="True">Invert</CheckBox>
 				</StackPanel>
 			</GroupBox>
@@ -76,9 +76,9 @@
 							<EventSetter Event="Checked" Handler="RadioButton_Checked" />
 						</Style>
 					</UniformGrid.Resources>
-					<RadioButton Content="Single" Background="ForestGreen" />
-					<RadioButton Content="Multiple" Background="SlateBlue"/>
-					<RadioButton Name="exte" Content="Extended" Background="Coral" Tag="Snow" IsChecked="true"/>
+					<RadioButton GroupName="howList" Content="Single" Background="ForestGreen"/>
+					<RadioButton GroupName="howList" Content="Multiple" Background="SlateBlue"/>
+					<RadioButton GroupName="howList" Content="Extended" Background="Coral" Tag="Snow" IsChecked="true" Name="exte" />
 				</UniformGrid>
 				<StackPanel Grid.Column="2" Orientation="Horizontal">
 					<ComboBox Name="partofYomi" Width="100" Height="26" VerticalContentAlignment="Center" IsEditable="True"></ComboBox>
