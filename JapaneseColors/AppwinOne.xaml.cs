@@ -79,7 +79,7 @@ namespace WpfAppone {
 			updateTitle();
 			clea.IsEnabled=false;
 			if(!inclusive) {
-				nscbs.Clear();
+				Nscbs.Clear();
 			}
 			this.Cursor=keep;
 		}
@@ -350,7 +350,6 @@ namespace WpfAppone {
 
 			return sp;
 		}
-		protected List<NamedSolidColorBrush> nscbs = new List<NamedSolidColorBrush>();
 		protected bool inclusive {
 			get {
 				bool yes = false;
@@ -368,13 +367,13 @@ namespace WpfAppone {
 			}
 			fillColors();
 			if(!inclusive) {
-				nscbs.Clear();
+				Nscbs.Clear();
 			}
 			foreach(ListBoxItem item in e.AddedItems){
 				TextBlock tb =item.Content as TextBlock;
 				if(tb!=null){
 					if(tb.Text.Contains("全て")) {
-						fillColors();
+						ClearList();
 						return;
 					}
 					foreach(ListBoxItem ritem in R.Items) {
@@ -382,13 +381,16 @@ namespace WpfAppone {
 						UniformGrid ug = ritem.Content as UniformGrid;
 						TextBlock yomi = ug.Children[1] as TextBlock;
 						if(yomi.Text.StartsWith(tb.Text)) {
-							nscbs.Add(new NamedSolidColorBrush(ritem));
+							NamedSolidColorBrush nscb = new NamedSolidColorBrush(ritem);
+							if(!Nscbs.Contains(nscb)) {
+								Nscbs.Add(nscb);
+							}
 						}
 					}
 				}
 			}
 			R.Items.Clear();
-			foreach(NamedSolidColorBrush nscb in nscbs) {
+			foreach(NamedSolidColorBrush nscb in Nscbs) {
 				R.Items.Add(SetListBoxItem(nscb));
 			}
 			updateTitle();
@@ -419,7 +421,7 @@ namespace WpfAppone {
 				InvertClicked(cb);
 				return;
 			} else {
-				fillColors(nscbs,true);
+				fillColors(Nscbs,true);
 			}
 			clea.IsEnabled=cb.IsChecked??false;
 			if(clea.IsEnabled){
@@ -461,7 +463,18 @@ namespace WpfAppone {
 					name=name.Replace("~","n");
 				}
 				NamedSolidColorBrush.howCompare=(NamedSolidColorBrush.HowCompare)Enum.Parse(typeof(NamedSolidColorBrush.HowCompare),name);
-				Sort();
+				List<NamedSolidColorBrush> nscbs = new List<NamedSolidColorBrush>();
+				foreach(ListBoxItem item in R.Items) {
+					NamedSolidColorBrush nscb = new NamedSolidColorBrush(item);
+					if(!nscbs.Contains(nscb)) {
+						nscbs.Add(nscb);
+					}
+				}
+				nscbs.Sort();
+				R.Items.Clear();
+				foreach(NamedSolidColorBrush nscb in nscbs) {
+					R.Items.Add(SetListBoxItem(nscb));
+				}
 				return;
 			}
 			L.SelectionMode=(SelectionMode)Enum.Parse(typeof(SelectionMode),(string)rb.Content);
@@ -471,18 +484,6 @@ namespace WpfAppone {
 			}
 			SetLListBrush(rb);
 			ClearListL();
-		}
-		private void Sort() {
-			List<NamedSolidColorBrush> nscbs = new List<NamedSolidColorBrush>();
-			foreach(ListBoxItem item in R.Items) {
-				NamedSolidColorBrush nscb = new NamedSolidColorBrush(item);
-				nscbs.Add(nscb);
-			}
-			nscbs.Sort();
-			R.Items.Clear();
-			foreach(NamedSolidColorBrush nscb in nscbs) {
-				R.Items.Add(SetListBoxItem(nscb));
-			}
 		}
 		private object SetListBoxItem(NamedSolidColorBrush nscb) {
 			ListBoxItem item = new ListBoxItem();
@@ -580,6 +581,10 @@ namespace WpfAppone {
 				return Keyboard.IsKeyDown(Key.LeftShift)||Keyboard.IsKeyDown(Key.RightShift);
 			}
 		}
+
+		public List<NamedSolidColorBrush> Nscbs { get => nscbs; set => nscbs=value; }
+		private List<NamedSolidColorBrush> nscbs = new List<NamedSolidColorBrush>();
+
 		public bool Terminate() {
 			bool cancelled = true;
 			if(!isTerminated) {
@@ -627,18 +632,21 @@ namespace WpfAppone {
 				if(!(ug.Children[1] is TextBlock hira)) { continue; }
 				if(hira.Text.Contains(partofYomi.Text)) {
 					NamedSolidColorBrush nscb = new NamedSolidColorBrush(item);
-					nscbs.Add(nscb);
+					if(!Nscbs.Contains(nscb)) {
+						Nscbs.Add(nscb);
+					}
 				}
 				if(!(ug.Children[0] is TextBlock kanj)) { continue; }
 				if(kanj.Text.Contains(partofYomi.Text)) {
 					NamedSolidColorBrush nscb = new NamedSolidColorBrush(item);
-					nscbs.Add(nscb);
+					if(!Nscbs.Contains(nscb)) {
+						Nscbs.Add(nscb);
+					}
 				}
 			}
-			//texs.Sort();
 			R.Items.Clear();
-			foreach(NamedSolidColorBrush tex in nscbs) {
-				R.Items.Add(SetListBoxItem(tex));
+			foreach(NamedSolidColorBrush nscb in Nscbs) {
+				R.Items.Add(SetListBoxItem(nscb));
 			}
 			updateTitle();
 			clea.IsEnabled=R.Items.Count>0;
@@ -648,7 +656,8 @@ namespace WpfAppone {
 			ClearListR();
 			ClearListL();
 			fillColors();
-			nscbs.Clear();
+			Nscbs.Clear();
+			partofYomi.Text=String.Empty;
 		}
 	}
 }

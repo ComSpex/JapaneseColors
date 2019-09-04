@@ -41,12 +41,14 @@ namespace WpfAppone {
 					if(f==null) { continue; }
 					MoveWindow(f,x,y,wide_limit,high_limit);
 					if(++wnum>=forms.Count) {
-						return;
+						goto breakout;
 					}
 					x+=wide_limit;
 				}
 				y+=high_limit;
 			}
+			breakout:
+			this.WindowState=WindowState.Minimized;
 		}
 		private void MoveWindow(Child f,int x,int y,int wide_limit,int high_limit) {
 			try {
