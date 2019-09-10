@@ -79,8 +79,8 @@
 					<RadioButton GroupName="selectMode" Content="Extended" Background="Coral" Tag="Snow" IsChecked="true" Name="exte" ToolTip="The user can select multiple consecutive items while holding down the SHIFT key." />
 				</UniformGrid>
 				<StackPanel Grid.Column="2" Orientation="Horizontal">
-					<ComboBox Name="partofYomi" Width="100" Height="26" VerticalContentAlignment="Center" IsEditable="True"></ComboBox>
-					<Button Width="60" Height="24" Click="Search_Click" Margin="10 0 0 0">Search</Button>
+					<ComboBox Name="partofYomi" Width="100" Height="26" VerticalContentAlignment="Center" IsEditable="True" SelectionChanged="PartofYomi_SelectionChanged"/>
+                    <Button Width="60" Height="24" Click="Search_Click" Margin="10 0 0 0">Search</Button>
 				</StackPanel>
 				<Button Name="clea" Content="Clear" Width="60" Height="24" 
 								HorizontalAlignment="Right" VerticalAlignment="Center" 
