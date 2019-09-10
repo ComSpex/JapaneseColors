@@ -617,12 +617,13 @@ namespace WpfAppone {
       MessageBox.Show(String.Format("Target is {0}", x.Tag));
     }
     private void PartofYomi_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-      #if false
+      // https://www.wpf-tutorial.com/list-controls/combobox-control/
+#if false
       ComboBox cb = sender as ComboBox;
       foreach (Grid item in e.AddedItems) {
         cb.Text = ParseComboBoxItem(item);
       }
-      #endif
+#endif
     }
     private string ParseComboBoxItem(object gr) {
       if (partofYomi.IsEditable) {
