@@ -455,6 +455,7 @@ namespace WpfAppone {
       } else {
         L.SelectedIndex = -1;
       }
+      searchCount = 0;
     }
     SelectionMode lastMode = SelectionMode.Extended;
     private void RadioButton_Checked(object sender, RoutedEventArgs e) {
@@ -717,6 +718,7 @@ namespace WpfAppone {
         if (searchCount>=2) {
           items = new ListBoxItem[R.Items.Count];
           R.Items.CopyTo(items,0);
+          Nscbs.Clear();
           fillColors();
         }
       }
