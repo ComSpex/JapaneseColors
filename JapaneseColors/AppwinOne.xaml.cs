@@ -618,12 +618,13 @@ namespace WpfAppone {
     }
     private void PartofYomi_SelectionChanged(object sender, SelectionChangedEventArgs e) {
       // https://www.wpf-tutorial.com/list-controls/combobox-control/
-#if false
-      ComboBox cb = sender as ComboBox;
-      foreach (Grid item in e.AddedItems) {
-        cb.Text = ParseComboBoxItem(item);
-      }
-#endif
+      #if false
+      Cursor keep=this.Cursor;
+      this.Cursor=Cursors.Wait;
+      R.Items.Clear();
+      DoSearch();
+      this.Cursor=keep;
+      #endif
     }
     private string ParseComboBoxItem(object gr) {
       if (partofYomi.IsEditable) {
@@ -699,9 +700,25 @@ namespace WpfAppone {
       this.erase.IsEnabled = false;
     }
     private void Search_Click(object sender, RoutedEventArgs e) {
+      DoSearch();
+      e.Handled = true;
+    }
+    int searchCount=0;
+    private void DoSearch() {
       if (String.IsNullOrEmpty(partofYomi.Text)) {
         ClearList();
         return;
+      }
+      ++searchCount;
+      ListBoxItem[] items = new ListBoxItem[0];
+      if (!inclusive) {
+        fillColors();
+      } else {
+        if (searchCount>=2) {
+          items = new ListBoxItem[R.Items.Count];
+          R.Items.CopyTo(items,0);
+          fillColors();
+        }
       }
       foreach (ListBoxItem item in R.Items) {
         if (item == null) { continue; }
@@ -722,6 +739,11 @@ namespace WpfAppone {
         }
       }
       R.Items.Clear();
+      if (inclusive) {
+        foreach (ListBoxItem item in items) {
+          R.Items.Add(item);
+        }
+      }
       foreach (NamedSolidColorBrush nscb in Nscbs) {
         R.Items.Add(SetListBoxItem(nscb));
       }
@@ -732,7 +754,6 @@ namespace WpfAppone {
           partofYomi.Items.Add(partofYomi.Text);
         }
       }
-      e.Handled = true;
     }
     private void ClearList() {
       ClearListR();
