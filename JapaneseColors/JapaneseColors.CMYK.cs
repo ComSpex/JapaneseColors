@@ -563,6 +563,66 @@ namespace WpfAppone {
 		public static NamedSolidColorBrush 桑茶 = new NamedSolidColorBrush(128,98,51,"くわちゃ",true);
 		public static NamedSolidColorBrush 桑色２ = new NamedSolidColorBrush(128,98,51,"くわいろ",true);
 		public static NamedSolidColorBrush 桑２ = new NamedSolidColorBrush(128,98,51,"くわそめ",true);
-		// 10
-	}
+    // 10
+    public static NamedSolidColorBrush 煙草色 = new NamedSolidColorBrush(128, 70, 13, "たばこいろ");
+    public static NamedSolidColorBrush 黄唐茶 = new NamedSolidColorBrush(153, 101, 31, "きからちゃ,きがらちゃ");
+    public static NamedSolidColorBrush 黄枯茶 = new NamedSolidColorBrush(153, 101, 31, "きからちゃ");
+    public static NamedSolidColorBrush 黄雀茶 = new NamedSolidColorBrush(153, 101, 31, "きからちゃ");
+    public static NamedSolidColorBrush 幹色 = new NamedSolidColorBrush(153, 99, 46, "みきいろ");
+    public static NamedSolidColorBrush 金煤竹 = new NamedSolidColorBrush(140, 93, 14, "きんすすたけ");
+    public static NamedSolidColorBrush 壁土色 = new NamedSolidColorBrush(128, 83, 38, "かべつちいろ");
+    public static NamedSolidColorBrush 壁色 = new NamedSolidColorBrush(128, 83, 38, "かべいろ");
+    public static NamedSolidColorBrush 黄櫨染２ = new NamedSolidColorBrush(128, 83, 38, "こうろぜん");
+    public static NamedSolidColorBrush 脂燭色 = new NamedSolidColorBrush(102, 66, 31, "しそくいろ");
+    public static NamedSolidColorBrush 木蘭色３ = new NamedSolidColorBrush(89, 59, 9, "もくらんじき,もくらんいろ");
+    public static NamedSolidColorBrush 乾陀羅色３ = new NamedSolidColorBrush(89, 59, 9, "けんだらじき");
+    public static NamedSolidColorBrush 健陁色２ = new NamedSolidColorBrush(89, 59, 9, "けんだしょく");
+    public static NamedSolidColorBrush 蘭茶２ = new NamedSolidColorBrush(89, 59, 9, "らんちゃ");
+    public static NamedSolidColorBrush 榛摺 = new NamedSolidColorBrush(89, 54, 18, "はりずり");
+    public static NamedSolidColorBrush 榛染 = new NamedSolidColorBrush(89, 54, 18, "はりそめ");
+    public static NamedSolidColorBrush 葵 = new NamedSolidColorBrush(89, 54, 18, "ありそめ");
+    public static NamedSolidColorBrush 榛木染 = new NamedSolidColorBrush(89, 54, 18, "はりのきぞめ");
+    public static NamedSolidColorBrush 煤竹色 = new NamedSolidColorBrush(77, 50, 23, "すすたけいろ");
+    public static NamedSolidColorBrush 渋茶 = new NamedSolidColorBrush(77, 59, 31, "しぶちゃ");
+    public static NamedSolidColorBrush 空五倍子色 = new NamedSolidColorBrush(51, 33, 15, "うつぶしいろ");
+    public static NamedSolidColorBrush 空紫色 = new NamedSolidColorBrush(51, 33, 15, "うつぶしいろ");
+    public static NamedSolidColorBrush 煙色 = new NamedSolidColorBrush(51, 33, 15, "イエンスー");
+    public static NamedSolidColorBrush 焦茶 = new NamedSolidColorBrush(38, 19, 0, "こげちゃ");
+    public static NamedSolidColorBrush 青白橡 = new NamedSolidColorBrush(38, 19, 0, "あおしろつるばみ");
+    public static NamedSolidColorBrush 極焦茶 = new NamedSolidColorBrush(20, 10, 0, "ごくこげちゃ");
+    public static NamedSolidColorBrush 向日葵色 = new NamedSolidColorBrush(255, 194, 13, "ひまわりいろ");
+    public static NamedSolidColorBrush 花欵冬 = new NamedSolidColorBrush(255, 194, 13, "はなつわぶき");
+    public static NamedSolidColorBrush 鬱金色 = new NamedSolidColorBrush(255, 207, 13, "うこんいろ,ターメリック");
+    public static NamedSolidColorBrush 濃卵 = new NamedSolidColorBrush(242, 187, 24, "こいたまご");
+    public static NamedSolidColorBrush 卵色 = new NamedSolidColorBrush(255, 209, 77, "たまごいろ");
+    public static NamedSolidColorBrush 黄支子 = new NamedSolidColorBrush(255, 196, 25, "きくちなし");
+    public static NamedSolidColorBrush 花葉色 = new NamedSolidColorBrush(255, 196, 25, "はなばいろ");
+    public static NamedSolidColorBrush 黄 = new NamedSolidColorBrush(255, 230, 13, "き");
+    public static NamedSolidColorBrush 蒲公英色 = new NamedSolidColorBrush(255, 230, 13, "たんぽぽいろ");
+    public static NamedSolidColorBrush 洎夫藍色２ = new NamedSolidColorBrush(242, 208, 24, "さふらんいろ");
+    public static NamedSolidColorBrush 承和色 = new NamedSolidColorBrush(255, 232, 38, "そがいろ,じょうわいろ");
+    public static NamedSolidColorBrush 金糸雀色 = new NamedSolidColorBrush(255, 232, 38, "かなりあいろ,きんしじゃくいろ");
+    public static NamedSolidColorBrush 黄水仙 = new NamedSolidColorBrush(255, 237, 77, "きずいせん");
+    public static NamedSolidColorBrush 藤黄 = new NamedSolidColorBrush(242, 220, 24, "とうおう,しおう");
+    public static NamedSolidColorBrush 雌黄 = new NamedSolidColorBrush(242, 220, 24, "しおう");
+    public static NamedSolidColorBrush 石蕗色 = new NamedSolidColorBrush(242, 220, 24, "つわぶきいろ");
+    public static NamedSolidColorBrush 欵冬色 = new NamedSolidColorBrush(242, 220, 24, "かんとういろ");
+    public static NamedSolidColorBrush 款冬色 = new NamedSolidColorBrush(242, 220, 24, "かんとういろ");
+    public static NamedSolidColorBrush 八丈 = new NamedSolidColorBrush(230, 184, 0, "はちじょう");
+    public static NamedSolidColorBrush 黄八丈 = new NamedSolidColorBrush(230, 184, 0, "きはちじょう");
+    public static NamedSolidColorBrush 黄蘗色 = new NamedSolidColorBrush(230, 213, 11, "きはだいろ");
+    public static NamedSolidColorBrush 黄檗 = new NamedSolidColorBrush(230, 213, 11, "きわだ,おうばく");
+    public static NamedSolidColorBrush 黄膚 = new NamedSolidColorBrush(230, 213, 11, "きはだ");
+    public static NamedSolidColorBrush 淡黄色 = new NamedSolidColorBrush(255, 245, 153, "たんこうしょく");
+    public static NamedSolidColorBrush 黄唐紙 = new NamedSolidColorBrush(242, 206, 97, "きからかみ");
+    public static NamedSolidColorBrush 唐紙黄 = new NamedSolidColorBrush(242, 206, 97, "からかみき");
+    public static NamedSolidColorBrush 鳥の子色 = new NamedSolidColorBrush(242, 230, 194, "とりのこいろ");
+    public static NamedSolidColorBrush 卵殻色 = new NamedSolidColorBrush(242, 230, 194, "らんからいろ");
+    public static NamedSolidColorBrush 魚子黄 = new NamedSolidColorBrush(242, 235, 170, "ぎょしこう");
+    public static NamedSolidColorBrush 象牙色 = new NamedSolidColorBrush(235, 228, 211, "ぞうげいろ");
+    public static NamedSolidColorBrush 淡黄蘗 = new NamedSolidColorBrush(242, 237, 170, "うすきはだ");
+    public static NamedSolidColorBrush 真珠色 = new NamedSolidColorBrush(250, 247, 242, "しんじゅいろ");
+    public static NamedSolidColorBrush 淡卵色 = new NamedSolidColorBrush(250, 235, 187, "うすたまごいろ");
+    //11
+  }
 }

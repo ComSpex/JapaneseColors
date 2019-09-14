@@ -10,7 +10,7 @@ using Drill_Color;
 namespace ConsoleCMYKGen {
 	class Program {
 		static void Main(string[] args) {
-			const int version = 9;
+			const int version = 10;
 			Console.InputEncoding=Console.OutputEncoding=Encoding.Unicode;
 			FileInfo file = new FileInfo(String.Format(@"J:\Yosuke\Documents\定本 和の色事典{0}.txt",version));
 			List<NamedSolidColorBrush> cmyks = new List<NamedSolidColorBrush>();
