@@ -72,41 +72,55 @@ namespace WpfAppone {
 			switch(howCompare) {
 				case HowCompare.R:
 					if(this.R<other.R) {
-						return -1*reverse;
-					}
-					if(this.R>other.R) {
+					  return -1*reverse;
+					}else if(this.R>other.R) {
 						return 1*reverse;
-					}
-					break;
-				case HowCompare.nR:
-					lV=(this.G<<8)|this.B;
-					rV=(other.G<<8)|other.B;
-					if(lV<rV) { return -1*reverse; }
-					if(lV>rV) { return 1*reverse; }
-					goto case HowCompare.R;
-				case HowCompare.G:
+          } else {
+            lV = /*(this.R << 16) |*/ (this.G << 8) | this.B;
+            rV = /*(other.R << 16) |*/ (other.G << 8) | other.B;
+            if (lV < rV) { return -1 * reverse; }
+            if (lV > rV) { return 1 * reverse; }
+            goto case HowCompare.G;
+          }
+          //break;
+        case HowCompare.G:
 					if(this.G<other.G) {
 						return -1*reverse;
-					}
-					if(this.G>other.G) {
+					}else	if(this.G>other.G) {
 						return 1*reverse;
-					}
-					break;
-				case HowCompare.nG:
-					lV=(this.R<<16)|this.B;
-					rV=(other.R<<16)|other.B;
-					if(lV<rV) { return -1*reverse; }
-					if(lV>rV) { return 1*reverse; }
-					goto case HowCompare.G;
-				case HowCompare.B:
+          } else {
+            lV = (this.R << 16) /*| (this.G << 8) */| this.B;
+            rV = (other.R << 16)/*| (other.G << 8)*/ | other.B;
+            if (lV < rV) { return -1 * reverse; }
+            if (lV > rV) { return 1 * reverse; }
+            goto case HowCompare.B;
+          }
+          //break;
+        case HowCompare.B:
 					if(this.B<other.B) {
 						return -1*reverse;
-					}
-					if(this.B>other.B) {
+					}else if(this.B>other.B) {
 						return 1*reverse;
-					}
-					break;
-				case HowCompare.nB:
+          } else {
+            lV = (this.R << 16) | (this.G << 8) /*| this.B*/;
+            rV = (other.R << 16) | (other.G << 8)/* | other.B*/;
+            if (lV < rV) { return -1 * reverse; }
+            if (lV > rV) { return 1 * reverse; }
+          }
+          break;
+        case HowCompare.nR:
+          lV = (this.G << 8) | this.B;
+          rV = (other.G << 8) | other.B;
+          if (lV < rV) { return -1 * reverse; }
+          if (lV > rV) { return 1 * reverse; }
+          goto case HowCompare.R;
+        case HowCompare.nG:
+          lV = (this.R << 16) | this.B;
+          rV = (other.R << 16) | other.B;
+          if (lV < rV) { return -1 * reverse; }
+          if (lV > rV) { return 1 * reverse; }
+          goto case HowCompare.G;
+        case HowCompare.nB:
 					lV=(this.R<<16)|(this.G<<8);
 					rV=(other.R<<16)|(other.G<<8);
 					if(lV<rV) { return -1*reverse; }
