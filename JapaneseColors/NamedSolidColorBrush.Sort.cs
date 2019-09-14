@@ -75,39 +75,28 @@ namespace WpfAppone {
 					  return -1*reverse;
 					}else if(this.R>other.R) {
 						return 1*reverse;
-          } else {
-            lV = /*(this.R << 16) |*/ (this.G << 8) | this.B;
-            rV = /*(other.R << 16) |*/ (other.G << 8) | other.B;
-            if (lV < rV) { return -1 * reverse; }
-            if (lV > rV) { return 1 * reverse; }
+          } else if (CompareR(other)==0) {
             goto case HowCompare.G;
           }
-          //break;
+          break;
         case HowCompare.G:
 					if(this.G<other.G) {
 						return -1*reverse;
 					}else	if(this.G>other.G) {
 						return 1*reverse;
-          } else {
-            lV = (this.R << 16) /*| (this.G << 8) */| this.B;
-            rV = (other.R << 16)/*| (other.G << 8)*/ | other.B;
-            if (lV < rV) { return -1 * reverse; }
-            if (lV > rV) { return 1 * reverse; }
+          } else if (CompareG(other) == 0) {
             goto case HowCompare.B;
           }
-          //break;
+          break;
         case HowCompare.B:
 					if(this.B<other.B) {
 						return -1*reverse;
 					}else if(this.B>other.B) {
 						return 1*reverse;
           } else {
-            lV = (this.R << 16) | (this.G << 8) /*| this.B*/;
-            rV = (other.R << 16) | (other.G << 8)/* | other.B*/;
-            if (lV < rV) { return -1 * reverse; }
-            if (lV > rV) { return 1 * reverse; }
+            return CompareB(other);
           }
-          break;
+          //break;
         case HowCompare.nR:
           lV = (this.G << 8) | this.B;
           rV = (other.G << 8) | other.B;
@@ -161,5 +150,26 @@ namespace WpfAppone {
 			}
 			return 0;
 		}
-	}
+    private int CompareB(NamedSolidColorBrush other) {
+      long lV = (this.R << 16) | (this.G << 8) /*| this.B*/;
+      long rV = (other.R << 16) | (other.G << 8)/* | other.B*/;
+      if (lV < rV) { return -1 * reverse; }
+      if (lV > rV) { return 1 * reverse; }
+      return 0;
+    }
+    private int CompareG(NamedSolidColorBrush other) {
+      long lV = (this.R << 16) /*| (this.G << 8) */| this.B;
+      long rV = (other.R << 16)/*| (other.G << 8)*/ | other.B;
+      if (lV < rV) { return -1 * reverse; }
+      if (lV > rV) { return 1 * reverse; }
+      return 0;
+    }
+    private int CompareR(NamedSolidColorBrush other) {
+      long lV = /*(this.R << 16) |*/ (this.G << 8) | this.B;
+      long rV = /*(other.R << 16) |*/ (other.G << 8) | other.B;
+      if (lV < rV) { return -1 * reverse; }
+      if (lV > rV) { return 1 * reverse; }
+      return 0;
+    }
+  }
 }
