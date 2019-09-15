@@ -8,7 +8,7 @@ using System.Windows.Media;
 namespace WpfAppone {
 	public partial class NamedSolidColorBrush:IEquatable<NamedSolidColorBrush>, IComparable<NamedSolidColorBrush> {
 		public NamedSolidColorBrush(ListBoxItem lbi) {
-			UniformGrid ug = lbi.Content as UniformGrid;
+			Panel ug = lbi.Content as Panel;
 			TextBlock one = ug.Children[0] as TextBlock;
 			TextBlock two = ug.Children[1] as TextBlock;
 			TextBlock san = ug.Children[2] as TextBlock;

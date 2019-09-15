@@ -30,7 +30,7 @@ namespace WpfAppone {
 				Child=boss.plateOf(Core)
 			};
 			Content=box;
-			Background=(box.Child as UniformGrid).Background;
+			Background=(box.Child as Panel).Background;
 			ToolTip=boss.swatchOf(Core);
 			// Do not set Owner, or Owner window is hidden.
 			//this.Owner=appwinOne;

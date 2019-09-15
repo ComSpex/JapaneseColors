@@ -25,7 +25,7 @@ namespace WpfAppone {
 				try {
 					Clipboard.SetText(text,TextDataFormat.UnicodeText);
 				} catch { }
-				UniformGrid ug = item.Content as UniformGrid;
+				Panel ug = item.Content as Panel;
 				Viewbox vb = new Viewbox {
 					Child=Clone(ug,true)
 				};
@@ -128,12 +128,12 @@ namespace WpfAppone {
 			}
 			lastWin=new Size(child.ActualWidth,child.ActualHeight);
 		}
-		private UIElement Clone(UniformGrid ug,bool tooltip = false) {
+		private UIElement Clone(Panel ug,bool tooltip = false) {
 			string key = (ug.Children[0] as TextBlock).Text;
 			string yom = (ug.Children[1] as TextBlock).Text;
 			UIElement elem = plateOf(key,yom,ug.Background) as UIElement;
 			if(tooltip) {
-				UniformGrid ugg = elem as UniformGrid;
+				Panel ugg = elem as Panel;
 				NamedSolidColorBrush nscb = new NamedSolidColorBrush(key,ug.Background as SolidColorBrush,yom);
 				ugg.ToolTip=swatchOf(key,nscb);
 			}
