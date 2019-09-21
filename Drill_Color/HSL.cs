@@ -21,10 +21,10 @@ namespace Drill_Color {
 		public HSL(SolidColorBrush scb) :
 			this(scb.Color) {
 		}
-		public HSL(int v1,int v2,int v3) {
-			this.H=v1;
-			this.S=v2;
-			this.L=v3;
+		public HSL(int hue,int saturation,int lightness) {
+			this.H=hue;
+			this.S=saturation;
+			this.L=lightness;
 			RGB=ToRGB(H,S,L);
 		}
 		public virtual Color ToRGB(double h,double s,double l) {
