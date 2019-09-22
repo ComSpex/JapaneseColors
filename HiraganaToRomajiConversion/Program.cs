@@ -73,7 +73,7 @@ namespace HiraganaToRomajiConversion {
         Console.ResetColor();
       }
     }
-    private static string DoConvert(string text,bool topcaptial=true) {
+    private static string DoConvert(string text,bool topcapital = true) {
       // https://www.lexilogos.com/keyboard/hiragana_conversion.htm
       string roma = String.Empty;
       for (int i = 0; i < text.Length; ++i) {
@@ -94,8 +94,8 @@ namespace HiraganaToRomajiConversion {
         roma += r;
       }
       roma=roma.Replace("si","shi").Replace("tu","tsu").Replace("zi","ji").Replace("ti","chi");
-      if (topcaptial) {
-        roma = roma.Substring(0, 1).ToUpper() + roma.Substring(1,roma.Length-1);
+      if (topcapital) {
+        roma = roma.Substring(0, 1).ToUpperInvariant() + roma.Substring(1,roma.Length-1);
       }
       return roma;
     }
