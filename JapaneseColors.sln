@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormsDrillPathGradientBrush
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopPelmanism", "DesktopPelmanism\DesktopPelmanism.csproj", "{CA436C6B-0AF7-4020-8512-B4413B02669B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HiraganaToRomajiConversion", "HiraganaToRomajiConversion\HiraganaToRomajiConversion.csproj", "{4ED53CB2-CEE4-4786-8AF3-968E1C47CFC9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -101,6 +103,14 @@ Global
 		{CA436C6B-0AF7-4020-8512-B4413B02669B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CA436C6B-0AF7-4020-8512-B4413B02669B}.Release|x64.ActiveCfg = Release|Any CPU
 		{CA436C6B-0AF7-4020-8512-B4413B02669B}.Release|x64.Build.0 = Release|Any CPU
+		{4ED53CB2-CEE4-4786-8AF3-968E1C47CFC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4ED53CB2-CEE4-4786-8AF3-968E1C47CFC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4ED53CB2-CEE4-4786-8AF3-968E1C47CFC9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4ED53CB2-CEE4-4786-8AF3-968E1C47CFC9}.Debug|x64.Build.0 = Debug|Any CPU
+		{4ED53CB2-CEE4-4786-8AF3-968E1C47CFC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4ED53CB2-CEE4-4786-8AF3-968E1C47CFC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4ED53CB2-CEE4-4786-8AF3-968E1C47CFC9}.Release|x64.ActiveCfg = Release|Any CPU
+		{4ED53CB2-CEE4-4786-8AF3-968E1C47CFC9}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
