@@ -30,6 +30,10 @@ namespace HiraganaToRomajiConversion {
         (style==RomajiStyle.Hebon?"jyajyujyo":"zyazyuzyo")+
         (style==RomajiStyle.Hebon?"jyajyujyo":"zyazyuzyo")+
         "byabyubyo"+"pyapyupyo";
+      string kanas = ConvertUnicode(hiras, true);
+      string hirag = ConvertUnicode(kanas, false);
+      Console.WriteLine("\n{0}\n{1}",kanas,hirag);
+      return;
       try {
         for (int i = 0, j = 0; i < hiras.Length; ++i, j += 2) {
           string l, r;
@@ -117,6 +121,33 @@ namespace HiraganaToRomajiConversion {
         roma = roma.Substring(0, 1).ToUpperInvariant() + roma.Substring(1,roma.Length-1);
       }
       return roma;
+    }
+    private static string ConvertUnicode(string text,bool toKatakana) {
+      byte[] codes=Encoding.Unicode.GetBytes(text);
+      byte[] kanas = new byte[codes.Length];
+      for(int i = 0,j=1; i < codes.Length; i+=2,j+=2) {
+        byte a = codes[i];
+        byte b = codes[j];
+        int code=swap(ref a, ref b);
+        //Console.Write("0x{0:X2}{1:X2}=0x{2:X4}",a,b,code);
+        if (toKatakana) {
+          code += 0x60;
+        } else {
+          code -= 0x60;
+        }
+        byte c = (byte)((code >> 8) & 0xff);
+        byte d = (byte)(code & 0x00ff);
+        swap(ref c, ref d);
+        kanas[i] = c;
+        kanas[j] = d;
+      }
+      return Encoding.Unicode.GetString(kanas);
+    }
+    private static int swap(ref byte a, ref byte b) {
+      byte c = a;
+      a = b;
+      b = c;
+      return (a << 8) | b;
     }
   }
 }
