@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace HiraganaToRomajiConversion {
+  //https://happylilac.net/roman-hyo2.pdf
   public enum RomajiStyle : int {
     Kunrei,
     Hebon
@@ -13,7 +14,6 @@ namespace HiraganaToRomajiConversion {
   public partial class RomajiConverter {
     Dictionary<string, string> dicOne = new Dictionary<string, string>();
     Dictionary<string, string> dicTwo = new Dictionary<string, string>();
-    //https://happylilac.net/roman-hyo2.pdf
     protected RomajiStyle style = RomajiStyle.Hebon;
     public RomajiStyle Style => style;
     public RomajiConverter() {
