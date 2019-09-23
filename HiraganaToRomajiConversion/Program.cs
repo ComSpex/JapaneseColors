@@ -7,10 +7,6 @@ using System.Threading.Tasks;
 using WpfAppone;
 
 namespace HiraganaToRomajiConversion {
-  public enum RomajiStyle:int {
-    Kunrei,
-    Hebon
-  }
   class Program {
     static Dictionary<string, string> dicOne = new Dictionary<string, string>();
     static Dictionary<string, string> dicTwo = new Dictionary<string, string>();
@@ -49,7 +45,7 @@ namespace HiraganaToRomajiConversion {
           //Console.Write("({2}): {0}={1}", l, r, i);
         }
         dicOne.Add(hiraTsu,"tu");
-        ShowDicOne();
+        //ShowDicOne();
         Print();
         //Test();
       } catch (Exception ex) {
@@ -62,6 +58,7 @@ namespace HiraganaToRomajiConversion {
       foreach (KeyValuePair<string, string> dic in dicOne) {
         Console.Write("{0}={1} ", dic.Key, dic.Value);
       }
+      Console.WriteLine();
     }
     private static void Print() {
       JapaneseColors jc = new JapaneseColors();
