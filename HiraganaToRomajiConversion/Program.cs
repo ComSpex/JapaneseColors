@@ -42,6 +42,9 @@ namespace HiraganaToRomajiConversion {
       for(;;) {
         Console.WriteLine("\nInput Hiragana or Katakana string and press Enter:");
         string text = Console.ReadLine();
+        if (String.IsNullOrEmpty(text)) {
+          return;
+        }
         if (text.Equals("quit")||text.Contains("おわり")) {
           break;
         }

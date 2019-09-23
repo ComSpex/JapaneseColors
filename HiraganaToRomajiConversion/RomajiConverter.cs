@@ -105,7 +105,7 @@ namespace HiraganaToRomajiConversion {
         debug("Converted:{0}",text);
       }
     }
-    public string ConvertUnicode(string text, bool toKatakana) {
+    protected string ConvertUnicode(string text, bool toKatakana) {
       byte[] codes = Encoding.Unicode.GetBytes(text);
       byte[] kanas = new byte[codes.Length];
       for (int i = 0, j = 1; i < codes.Length; i += 2, j += 2) {
