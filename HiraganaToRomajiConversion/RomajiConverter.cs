@@ -14,7 +14,8 @@ namespace HiraganaToRomajiConversion {
     Dictionary<string, string> dicOne = new Dictionary<string, string>();
     Dictionary<string, string> dicTwo = new Dictionary<string, string>();
     //https://happylilac.net/roman-hyo2.pdf
-    RomajiStyle style = RomajiStyle.Hebon;
+    protected RomajiStyle style = RomajiStyle.Hebon;
+    public RomajiStyle Style => style;
     public RomajiConverter() {
       string hiraOne = "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん　ゃゅょぇゑー・" +
         "がぎぐげござじずぜぞだぢづでどばびぶべぼ" +
@@ -48,6 +49,12 @@ namespace HiraganaToRomajiConversion {
     }
     public virtual IEnumerable<string> ShowDicOne() {
       foreach (KeyValuePair<string, string> dic in dicOne) {
+        yield return String.Format("{0}={1} ", dic.Key, dic.Value);
+      }
+      debug("\n");
+    }
+    public virtual IEnumerable<string> ShowDicTwo() {
+      foreach (KeyValuePair<string, string> dic in dicTwo) {
         yield return String.Format("{0}={1} ", dic.Key, dic.Value);
       }
       debug("\n");
