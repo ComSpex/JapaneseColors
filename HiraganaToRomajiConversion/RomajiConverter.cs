@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace HiraganaToRomajiConversion {
   //https://happylilac.net/roman-hyo2.pdf

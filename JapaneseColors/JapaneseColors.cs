@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Reflection;
-using System.Windows.Media;
 
 namespace WpfAppone {
-	/// <summary>
-	/// JapaneseColors
-	/// </summary>
-	public partial class JapaneseColors {
+  /// <summary>
+  /// JapaneseColors
+  /// </summary>
+  public partial class JapaneseColors {
 		public static bool SkipAlias=false;
 		static JapaneseColors() { }
 		void Report(string format,params object[] args) {
