@@ -91,6 +91,9 @@ namespace HiraganaToRomajiConversion {
         roma = roma.Replace("jya", "ja");
         roma = roma.Replace("jyu", "ju");
         roma = roma.Replace("jyo", "jo");
+        if (roma.Contains("hu") && !roma.Contains("shu")) {
+          roma = roma.Replace("hu", "fu");
+        }
       }
       if (topcapital) {
         roma = roma.Substring(0, 1).ToUpperInvariant() + roma.Substring(1, roma.Length - 1);
