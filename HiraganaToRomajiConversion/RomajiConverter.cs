@@ -101,7 +101,7 @@ namespace HiraganaToRomajiConversion {
       return roma;
     }
     protected void CheckIfKatakana(ref string text) {
-      Match Ma = Regex.Match(text, @"[\u30A1-\u30F6][\u30FA\u30FC]*");
+      Match Ma = Regex.Match(text, @"[\u30A1-\u30F6][\u30FB\u30FC]*");
       if (Ma.Success) {
         text = ConvertUnicode(text, false);
         debug("Converted:{0}",text);

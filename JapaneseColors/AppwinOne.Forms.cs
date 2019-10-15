@@ -4,10 +4,13 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
+using System.Windows.Threading;
+using Application = System.Windows.Application;
 
 namespace WpfAppone {
 	public partial class AppwinOne {
@@ -80,6 +83,7 @@ namespace WpfAppone {
 					NamedSolidColorBrush nscb = new NamedSolidColorBrush(item);
 					listKeys.Add(nscb.Kanji);
 					listValues.Add(nscb);
+          DoEvents();
 				}
 #else
 				foreach(KeyValuePair<string,NamedSolidColorBrush> Core in Jc.Cores) {
@@ -98,7 +102,11 @@ namespace WpfAppone {
 				f.Show();
 				forms.Add(title,f);
 				++ColorIndex;
+        DoEvents();
 			}
 		}
-	}
+    public static void DoEvents() {
+      Application.Current.Dispatcher.Invoke(DispatcherPriority.Background, new ThreadStart(delegate { }));
+    }
+  }
 }

@@ -31,10 +31,11 @@ namespace WpfAppone {
       Application.Current.SessionEnding += Current_SessionEnding;
       Application.Current.Exit += Current_Exit;
       InitializeComponent();
+      this.Top = 0;
+      this.Height = System.Windows.SystemParameters.WorkArea.Height - System.Windows.SystemParameters.MenuBarHeight;
+      this.Width = 820;
       LoadComboItems(file);
       //this.Topmost=true;
-      this.Height = 1250;
-      this.Width = 820;
       NamedSolidColorBrush.Invert =
         CMYK.Invert = true;
       fillColors();
