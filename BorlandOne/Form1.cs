@@ -140,7 +140,7 @@ namespace BorlandOne {
 			SmoothingMode[] smodes = new SmoothingMode[] { SmoothingMode.AntiAlias,SmoothingMode.Default,SmoothingMode.HighQuality,SmoothingMode.HighSpeed,/*SmoothingMode.Invalid,*/SmoothingMode.None };
 			LineCap[] lcaps = new LineCap[] { LineCap.Triangle,LineCap.SquareAnchor,LineCap.Square,LineCap.RoundAnchor,LineCap.Round,LineCap.NoAnchor,LineCap.Flat,LineCap.DiamondAnchor,LineCap.Custom,LineCap.ArrowAnchor,LineCap.AnchorMask };
 			DashCap[] dcaps = new DashCap[] { DashCap.Triangle,DashCap.Round,DashCap.Flat };
-			g.SmoothingMode=smodes[rand.Next(0,smodes.Length-1)];
+			g.SmoothingMode=smodes[rand.Next(0,smodes.Length)];
 			FontFamily[] ffs = FontFamily.Families;
 			string ss = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz~!@#$%^&*()_-+={[}\\]|\"':;?//>.<,";
 			FontStyle[] styles = new FontStyle[] { FontStyle.Bold,FontStyle.Italic,FontStyle.Regular,FontStyle.Strikeout,FontStyle.Underline };
@@ -157,7 +157,7 @@ namespace BorlandOne {
 				if(!UseAlpha) {
 					rgb[0]=(byte)0xff;
 				}
-				KeyValuePair<string,NamedSolidColorBrush> kvp = kvps[rand.Next(0,kvps.Length-1)];
+				KeyValuePair<string,NamedSolidColorBrush> kvp = kvps[rand.Next(0,kvps.Length)];
 				NamedSolidColorBrush Nscb = kvp.Value;
 				Color fore;
 				if(UseJapaneseColor) {
@@ -170,7 +170,7 @@ namespace BorlandOne {
 				Brush brush = new SolidBrush(fore);
 				Brush hsurb = new SolidBrush(back);
 				Pen pen = new Pen(hsurb,Convert.ToSingle(rand.Next(ofPen.from,ofPen.upto)));
-				pen.SetLineCap(lcaps[rand.Next(0,lcaps.Length-1)],lcaps[rand.Next(0,lcaps.Length-1)],dcaps[rand.Next(0,dcaps.Length-1)]);
+				pen.SetLineCap(lcaps[rand.Next(0,lcaps.Length)],lcaps[rand.Next(0,lcaps.Length)],dcaps[rand.Next(0,dcaps.Length)]);
 				Rectangle rect = new Rectangle(loc,size);
 				Point[] points = GeneratePoints(rand,bounds);
 				try {
@@ -213,17 +213,17 @@ namespace BorlandOne {
 							break;
 						case WhatToDraw.Text:
 							float fsize = Convert.ToSingle(rand.Next(ofFont.from,ofFont.upto));
-							Font font = new Font(ffs[rand.Next(0,ffs.Length-1)],fsize,styles[rand.Next(0,styles.Length-1)]);
+							Font font = new Font(ffs[rand.Next(0,ffs.Length)],fsize,styles[rand.Next(0,styles.Length)]);
 							PointF point = new PointF(left,top);
-							g.DrawString(ss.Substring(rand.Next(0,ss.Length-1),1),font,brush,point);
-							g.RotateTransform(Convert.ToSingle(rand.Next(-360,360)));
+							g.DrawString(ss.Substring(rand.Next(0,ss.Length),1),font,brush,point);
+							g.RotateTransform(Convert.ToSingle(rand.Next(-360,361)));
 							break;
 						case WhatToDraw.Line:
 							g.DrawLine(pen,loc,new Point(size));
 							break;
 						case WhatToDraw.Arc:
-							float a1 = Convert.ToSingle(rand.Next(-360,360));
-							float a2 = Convert.ToSingle(rand.Next(-360,360));
+							float a1 = Convert.ToSingle(rand.Next(-360,361));
+							float a2 = Convert.ToSingle(rand.Next(-360,361));
 							g.DrawArc(pen,rect,a1,a2);
 							break;
 						case WhatToDraw.Bezier:
@@ -247,12 +247,12 @@ namespace BorlandOne {
 							break;
 						case WhatToDraw.OfColorCode:
 							float jfsize = Convert.ToSingle(rand.Next(miniSizej,UseJapaneseColor ? maxSizej : maxSize_));
-							Font jfont = new Font(ffs[rand.Next(0,ffs.Length-1)],jfsize,styles[rand.Next(0,jstyles.Length-1)]);
+							Font jfont = new Font(ffs[rand.Next(0,ffs.Length)],jfsize,styles[rand.Next(0,jstyles.Length)]);
 							PointF jpoint = new PointF(left,top);
 							string text = null;
 							for(int i = 0;i<10;++i) {
 								if(AvoidBlankCharacter(jfont)) {
-									jfont=new Font(ffs[rand.Next(0,ffs.Length-1)],jfsize,styles[rand.Next(0,jstyles.Length-1)]);
+									jfont=new Font(ffs[rand.Next(0,ffs.Length)],jfsize,styles[rand.Next(0,jstyles.Length)]);
 								} else {
 									break;
 								}
@@ -264,7 +264,7 @@ namespace BorlandOne {
 								text=fore.IsNamedColor ? fore.Name : fore_Code;
 							}
 							g.DrawString(text,jfont,brush,jpoint);
-							g.RotateTransform(Convert.ToSingle(rand.Next(-360,360)));
+							g.RotateTransform(Convert.ToSingle(rand.Next(-360,361)));
 							break;
 #if false
 						case WhatToDraw.Background:
@@ -304,13 +304,13 @@ namespace BorlandOne {
 			NamedSolidColorBrush Nscb=ds.Nscb;
 			Brush hsurb = ds.hsurb;
 			Pen pen = ds.pen;
-			FontFamily ff = ffs[rand.Next(0,ffs.Length-1)];
-			FontStyle fs = styles[rand.Next(0,jstyles.Length-1)];
+			FontFamily ff = ffs[rand.Next(0,ffs.Length)];
+			FontStyle fs = styles[rand.Next(0,jstyles.Length)];
 			float jsize = Convert.ToSingle(rect.Height)/2.5f;
 			Font jont = new Font(ff,jsize,fs);
 			PointF joint = new PointF(rect.Left+pen.Width,rect.Top+pen.Width);
 			string jtext = String.Format("{0}({1})",kvp.Key,Nscb.Name);
-			switch(rand.Next(1,5)){
+			switch(rand.Next(1,6)){
 				case 1:
 					jtext=String.Format("{0}",kvp.Key);
 					break;
@@ -322,8 +322,8 @@ namespace BorlandOne {
 			}
 			for(int i = 0;i<10;++i) {
 				if(AvoidBlankCharacter(jont)) {
-					ff=ffs[rand.Next(0,ffs.Length-1)];
-					fs=styles[rand.Next(0,jstyles.Length-1)];
+					ff=ffs[rand.Next(0,ffs.Length)];
+					fs=styles[rand.Next(0,jstyles.Length)];
 					jont=new Font(ff,jsize,fs);
 				} else {
 					break;
@@ -349,7 +349,7 @@ namespace BorlandOne {
 		}
 
 		private Point[] GeneratePoints(Random rand,Rectangle bounds) {
-			int upto = rand.Next(3,36);
+			int upto = rand.Next(3,37);
 			List<Point> ps = new List<Point>(upto);
 			for(int i = 0;i<upto;++i) {
 				int x = rand.Next(0,bounds.Right);
