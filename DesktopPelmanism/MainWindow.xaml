@@ -1,0 +1,22 @@
+﻿<Window x:Class="DesktopPelmanism.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DesktopPelmanism"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+  <Canvas>
+    <local:A_Card Canvas.Left="35" Canvas.Top="44" RenderTransformOrigin="0.5,0.5">
+      <local:A_Card.RenderTransform>
+        <TransformGroup>
+          <ScaleTransform/>
+          <SkewTransform/>
+          <RotateTransform Angle="-21.99"/>
+          <TranslateTransform/>
+        </TransformGroup>
+      </local:A_Card.RenderTransform>
+    </local:A_Card>
+
+  </Canvas>
+</Window>

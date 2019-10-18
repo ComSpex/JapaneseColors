@@ -95,6 +95,24 @@ namespace HiraganaToRomajiConversion {
           roma = roma.Replace("hu", "fu");
         }
       }
+      while (roma.Contains("-")) {
+        Console.OutputEncoding = Encoding.Unicode;
+        Dictionary<string, string> vowels = new Dictionary<string, string>();
+        vowels.Add("a", "ā");
+        vowels.Add("e", "ē");
+        vowels.Add("i", "ī");
+        vowels.Add("o", "ō");
+        vowels.Add("u", "ū");
+        vowels.Add("A", "Ā");
+        vowels.Add("E", "Ē");
+        vowels.Add("I", "Ī");
+        vowels.Add("O", "Ō");
+        vowels.Add("U", "Ū");
+        int index = roma.IndexOf("-");
+        string target = roma.Substring(index - 1, 2);
+        string newstr = vowels[target.Substring(0, 1)];
+        roma = roma.Replace(target, newstr);
+      }
       if (topcapital) {
         roma = roma.Substring(0, 1).ToUpperInvariant() + roma.Substring(1, roma.Length - 1);
       }
