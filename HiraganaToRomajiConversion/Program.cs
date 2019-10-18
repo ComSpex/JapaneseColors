@@ -7,7 +7,7 @@ namespace HiraganaToRomajiConversion {
     static void Main(string[] args) {
       try {
         RomajiConverter rc = new RomajiConverter();
-        //Print(rc);
+        Print(rc);
         Test(rc);
       } catch(Exception ex) {
         Console.ForegroundColor = ConsoleColor.Red;
