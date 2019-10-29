@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ComSpex.HiraganaToRomanConverter;
 using ComSpex.JapaneseColors;
 
 namespace HiraganaToRomajiConversion {
