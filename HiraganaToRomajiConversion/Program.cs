@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using WpfAppone;
+using ComSpex.JapaneseColors;
 
 namespace HiraganaToRomajiConversion {
   class Program {

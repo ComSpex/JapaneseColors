@@ -1,11 +1,11 @@
-﻿using System;
+﻿using ComSpex.JapaneseColors;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows.Forms;
-using WpfAppone;
 
 namespace BorlandOne {
 	public partial class Form1:Form {

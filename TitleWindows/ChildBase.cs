@@ -10,8 +10,8 @@ using FontFamily = System.Drawing.FontFamily;
 using System.Drawing;
 using System.Windows.Media;
 using System.Reflection;
-using WpfAppone;
 using System.Windows.Forms;
+using ComSpex.JapaneseColors;
 
 namespace TileWindows {
 	public abstract partial class ChildBase:Form,IChild<Color,Brush> {

@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>TileWindows</RootNamespace>
     <AssemblyName>TileWindows</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
@@ -99,17 +99,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ComSpex.JapaneseColors\ComSpex.JapaneseColors.csproj">
+      <Project>{9834a198-915e-4caf-971b-a07e627ab706}</Project>
+      <Name>ComSpex.JapaneseColors</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ConsoleLCMandGCD\ConsoleLCMandGCD.fsproj">
       <Project>{e63107f1-c3b7-4ca4-81b4-f4269f4188bb}</Project>
       <Name>ConsoleLCMandGCD</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Drill_Color\Drill_Color.csproj">
-      <Project>{1c6fd348-786c-4606-9490-1f6236fb066b}</Project>
-      <Name>Drill_Color</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\JapaneseColors\JapaneseColors.csproj">
-      <Project>{4783a2f4-3e68-419d-be08-2c21488df78b}</Project>
-      <Name>JapaneseColors</Name>
     </ProjectReference>
     <ProjectReference Include="..\ListWindows\ListWindows.csproj">
       <Project>{99bfb279-eacf-476a-a58f-99418ce208d6}</Project>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ComSpex.JapaneseColors;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -57,7 +58,7 @@ namespace Drill_Color {
 		private void CreateWindow(Color color,string name) {
 			CreateWindow<HSL>(color,name);
 		}
-		private void CreateWindow(HSV hSV,string name) {
+    private void CreateWindow(HSV hSV,string name) {
 			CreateWindow<HSV>(hSV.RGB,name);
 		}
 		private void CreateWindow(HSL hSL,string name) {

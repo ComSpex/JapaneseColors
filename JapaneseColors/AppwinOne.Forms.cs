@@ -11,6 +11,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
 using System.Windows.Threading;
 using Application = System.Windows.Application;
+using ComSpex.JapaneseColors;
 
 namespace WpfAppone {
 	public partial class AppwinOne {

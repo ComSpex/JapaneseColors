@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HiraganaToRomajiConversion"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopPelmanism", "DesktopPelmanism\DesktopPelmanism.csproj", "{F70B2E45-7D33-43AB-985C-BB01CD71CCF0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComSpex.JapaneseColors", "ComSpex.JapaneseColors\ComSpex.JapaneseColors.csproj", "{9834A198-915E-4CAF-971B-A07E627AB706}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,6 +113,14 @@ Global
 		{F70B2E45-7D33-43AB-985C-BB01CD71CCF0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F70B2E45-7D33-43AB-985C-BB01CD71CCF0}.Release|x64.ActiveCfg = Release|Any CPU
 		{F70B2E45-7D33-43AB-985C-BB01CD71CCF0}.Release|x64.Build.0 = Release|Any CPU
+		{9834A198-915E-4CAF-971B-A07E627AB706}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9834A198-915E-4CAF-971B-A07E627AB706}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9834A198-915E-4CAF-971B-A07E627AB706}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9834A198-915E-4CAF-971B-A07E627AB706}.Debug|x64.Build.0 = Debug|Any CPU
+		{9834A198-915E-4CAF-971B-A07E627AB706}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9834A198-915E-4CAF-971B-A07E627AB706}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9834A198-915E-4CAF-971B-A07E627AB706}.Release|x64.ActiveCfg = Release|Any CPU
+		{9834A198-915E-4CAF-971B-A07E627AB706}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

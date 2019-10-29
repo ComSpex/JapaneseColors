@@ -19,6 +19,7 @@ using Drill_Color;
 using System.Media;
 using System.Runtime.InteropServices;
 using System.Windows.Interop;
+using ComSpex.JapaneseColors;
 
 namespace WpfAppone {
   /// <summary>

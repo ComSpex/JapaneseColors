@@ -46,7 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="C:\Users\Yosukem\Source\Repos\ColorPicker\ColorPicker\HSLColor.cs">
+    <Compile Include="..\..\..\..\..\Repos\ColorPicker\ColorPicker\HSLColor.cs">
       <Link>HSLColor.cs</Link>
     </Compile>
     <Compile Include="Form1.cs">

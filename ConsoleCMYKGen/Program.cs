@@ -4,8 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-using WpfAppone;
-using Drill_Color;
+using ComSpex.JapaneseColors;
 
 namespace ConsoleCMYKGen {
 	class Program {

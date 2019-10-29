@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>BorlandOne</RootNamespace>
     <AssemblyName>BorlandOne</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
@@ -86,13 +86,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Drill_Color\Drill_Color.csproj">
-      <Project>{1c6fd348-786c-4606-9490-1f6236fb066b}</Project>
-      <Name>Drill_Color</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\JapaneseColors\JapaneseColors.csproj">
-      <Project>{4783a2f4-3e68-419d-be08-2c21488df78b}</Project>
-      <Name>JapaneseColors</Name>
+    <ProjectReference Include="..\ComSpex.JapaneseColors\ComSpex.JapaneseColors.csproj">
+      <Project>{9834a198-915e-4caf-971b-a07e627ab706}</Project>
+      <Name>ComSpex.JapaneseColors</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
